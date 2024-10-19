@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
 	Box,
 	Button,
@@ -33,12 +34,26 @@ const EditDetailedCoursePageComponent = () => {
 
 	const handleChange = file => {
 		setFile(file);
+=======
+import { Divider } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { InstructorManageCourse } from 'src/components';
+import { SubmitValuesInterface } from 'src/components/instructor-manage-course/instructor-manage-course.props';
+import SectionTitle from 'src/components/section-title/section-title';
+
+const EditDetailedCoursePageComponent = () => {
+	const router = useRouter();
+
+	const onSubmit = (data: SubmitValuesInterface) => {
+		console.log(data);
+>>>>>>> master
 	};
 
 	return (
 		<>
 			<SectionTitle title={`Edit course ${router.query.slug}`} subtitle={''} />
 			<Divider mt={5} />
+<<<<<<< HEAD
 			<Flex mt={12} gap={4}>
 				<Box w={'70%'}>
 					<Stack spacing={5}>
@@ -167,6 +182,10 @@ const EditDetailedCoursePageComponent = () => {
 					</Stack>
 				</Box>
 			</Flex>
+=======
+
+			<InstructorManageCourse titleBtn='Edit course' submitHandler={onSubmit} />
+>>>>>>> master
 		</>
 	);
 };

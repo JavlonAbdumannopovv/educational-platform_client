@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
 	Box,
 	Button,
@@ -30,6 +31,16 @@ const CreateCourseComponent = () => {
 
 	const handleChange = file => {
 		setFile(file);
+=======
+import { Divider } from '@chakra-ui/react';
+import { InstructorManageCourse } from 'src/components';
+import { SubmitValuesInterface } from 'src/components/instructor-manage-course/instructor-manage-course.props';
+import SectionTitle from 'src/components/section-title/section-title';
+
+const CreateCourseComponent = () => {
+	const onSubmit = (data: SubmitValuesInterface) => {
+		console.log(data);
+>>>>>>> master
 	};
 
 	return (
@@ -39,6 +50,7 @@ const CreateCourseComponent = () => {
 				subtitle="Note that when you're creating course it will be draft"
 			/>
 			<Divider mt={5} />
+<<<<<<< HEAD
 			<Flex mt={12} gap={4}>
 				<Box w={'70%'}>
 					<Stack spacing={5}>
@@ -167,6 +179,9 @@ const CreateCourseComponent = () => {
 					</Stack>
 				</Box>
 			</Flex>
+=======
+			<InstructorManageCourse titleBtn='Create course' submitHandler={onSubmit} />
+>>>>>>> master
 		</>
 	);
 };

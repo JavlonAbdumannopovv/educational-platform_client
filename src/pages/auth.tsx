@@ -7,9 +7,13 @@ const AuthPage = () => {
 
 	return (
 		<Seo
+<<<<<<< HEAD
 			metaTitle={
 				`Sammi | ${t('auth_page_title', { ns: 'seo' })}` || 'Sammi | Auth'
 			}
+=======
+			metaTitle={`Sammi | ${t('auth_page_title', { ns: 'seo' })}` || 'Sammi | Auth'}
+>>>>>>> master
 			metaDescription={
 				`Sammi | ${t('auth_page_description', { ns: 'seo' })}` ||
 				'Login or create your account for using sammi platform'
