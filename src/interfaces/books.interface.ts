@@ -4,5 +4,4 @@ export interface BooksType {
 	pdf: string;
 	image: string;
 	_id?: string;
-	category: string;
 }
