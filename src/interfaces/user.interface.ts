@@ -4,8 +4,7 @@ export interface UserType {
 	email?: string;
 	fullName?: string;
 	role?: RoleUser;
-	createdAt?: Date;
+	createdAt?: string;
 	password?: string;
 	avatar?: string;
-	job?: string;
 }

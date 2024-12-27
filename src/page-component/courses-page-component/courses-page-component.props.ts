@@ -8,8 +8,3 @@ export interface CategoryListProps {
 	name: string;
 	id: string;
 }
-
-export interface FilterCourseType {
-	category: string;
-	id: string;
-}

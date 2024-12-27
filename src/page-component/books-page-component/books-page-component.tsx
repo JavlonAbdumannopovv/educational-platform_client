@@ -1,63 +1,35 @@
-import {
-	Box,
-	Button,
-	Flex,
-	Grid,
-	HStack,
-	Text,
-	useColorModeValue,
-	useToast,
-} from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { Box, Button, Flex, Grid, HStack, Image, Text, useColorModeValue } from '@chakra-ui/react';
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { AiFillShopping } from 'react-icons/ai';
 import SectionTitle from 'src/components/section-title/section-title';
 import { booksCategory } from 'src/config/constants';
-import { loadImage } from 'src/helpers/image.helper';
-import { useActions } from 'src/hooks/useActions';
-import { useTypedSelector } from 'src/hooks/useTypedSelector';
-import { BooksType } from 'src/interfaces/books.interface';
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const BooksPageComponent = () => {
 	const [filter, setFilter] = useState<string>('all-categories');
 
 	const backgroundColor = useColorModeValue('gray.200', 'gray.900');
 	const { t } = useTranslation();
-	const { books } = useTypedSelector(state => state.books);
-	const cart = useTypedSelector(state => state.cart);
-	const { addBookToCart } = useActions();
-	const toast = useToast();
 
 	const filteredData = useCallback(() => {
 		switch (filter) {
 			case 'programming':
-				return books.filter(c => c.category === 'programming');
+				return data.filter(c => c.category === 'programming');
 			case 'design':
-				return books.filter(c => c.category === 'design');
+				return data.filter(c => c.category === 'design');
 			case 'business':
-				return books.filter(c => c.category == 'business');
+				return data.filter(c => c.category == 'business');
 			case 'history':
-				return books.filter(c => c.category == 'history');
+				return data.filter(c => c.category == 'history');
 			case 'writing':
-				return books.filter(c => c.category == 'writing');
+				return data.filter(c => c.category == 'writing');
 			case 'lifestyle':
-				return books.filter(c => c.category == 'lifestyle');
+				return data.filter(c => c.category == 'lifestyle');
 			default:
-				return books;
+				return data;
 		}
-	}, [filter, books]);
-
-	const addToCart = (book: BooksType) => {
-		const existingProduct = cart.books.find(c => c._id === book._id);
-		if (existingProduct) {
-			toast({ title: 'Book already exist in cart', position: 'bottom', status: 'warning' });
-			return;
-		}
-		addBookToCart(book);
-		toast({ title: 'Book added successfully', position: 'bottom' });
-	};
+	}, [filter]);
 
 	return (
 		<Box mb={20}>
@@ -90,16 +62,9 @@ const BooksPageComponent = () => {
 				mt={5}
 			>
 				{filteredData().map(item => (
-					<motion.div key={item._id} layout>
+					<motion.div key={item.name} layout>
 						<Box pos={'relative'}>
-							<Box pos={'relative'} w={'full'} h={'250px'}>
-								<Image
-									src={loadImage(item.image)}
-									alt={item.title}
-									fill
-									style={{ borderRadius: '10px', objectFit: 'cover' }}
-								/>
-							</Box>
+							<Image src={item.image} alt={item.name} borderRadius={'lg'} w={'full'} h={'250px'} objectFit={'cover'} />
 							<HStack
 								pos={'absolute'}
 								minH={'90px'}
@@ -113,17 +78,12 @@ const BooksPageComponent = () => {
 								justify={'space-between'}
 							>
 								<Box>
-									<Text fontSize={'md'}>{item.title}</Text>
+									<Text fontSize={'md'}>{item.name}</Text>
 									<Text fontWeight={'bold'} fontSize={'2xl'}>
 										{item.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
 									</Text>
 								</Box>
-								<Button
-									colorScheme={'facebook'}
-									rightIcon={<AiFillShopping />}
-									onClick={() => addToCart(item)}
-									isDisabled={cart.books.map(c => c._id).includes(item._id) ? true : false}
-								>
+								<Button colorScheme={'facebook'} rightIcon={<AiFillShopping />}>
 									Buy
 								</Button>
 							</HStack>
@@ -135,3 +95,103 @@ const BooksPageComponent = () => {
 	);
 };
 export default BooksPageComponent;
+
+const data = [
+	{
+		name: 'JavaScript - Design Pattern',
+		image: 'https://ucarecdn.com/01292099-b782-4b74-a05e-f902be3feecd/',
+		category: 'programming',
+		price: 10,
+	},
+	{
+		name: 'Proffessional ReactJS',
+		image: 'https://e1.pxfuel.com/desktop-wallpaper/595/427/desktop-wallpaper-js-posted-by-samantha-johnson-reactjs.jpg',
+		category: 'programming',
+		price: 40,
+	},
+	{
+		name: 'HTML CSS - Web',
+		image: 'https://t3.ftcdn.net/jpg/04/86/60/44/360_F_486604480_EKKklldKqiwmvAunlEeF4QdI0dfjDojA.jpg',
+		category: 'programming',
+		price: 15,
+	},
+	{
+		name: 'Backend Programming',
+		image: 'http://wbsimms.com/wp-content/uploads/2016/07/NodeJsBackground.png',
+		category: 'programming',
+		price: 30,
+	},
+
+	{
+		name: 'Proffessional Photoshop',
+		image: 'https://wallpaperaccess.com/full/1533478.jpg',
+		category: 'design',
+		price: 90,
+	},
+	{
+		name: 'Illustrator',
+		image: 'https://images5.alphacoders.com/114/1147598.png',
+		category: 'design',
+		price: 20,
+	},
+	{
+		name: 'Premier Pro',
+		image: 'https://wallpaperaccess.com/full/3539123.jpg',
+		category: 'design',
+		price: 15,
+	},
+
+	{
+		name: 'Startup',
+		image: 'https://img.freepik.com/free-vector/illustration-startup-business_53876-18154.jpg',
+		category: 'business',
+		price: 30,
+	},
+	{
+		name: 'Business idea',
+		image: 'https://c0.wallpaperflare.com/preview/931/296/849/business-idea-planning-board-business-plan-thumbnail.jpg',
+		category: 'business',
+		price: 24,
+	},
+	{
+		name: 'Growth your plan',
+		image:
+			'https://online.stanford.edu/sites/default/files/styles/figure_default/public/you-have-a-business-idea-webinar-hero-image.jpg?itok=OaDnVEt0',
+		category: 'business',
+		price: 15,
+	},
+
+	{
+		name: 'The History Of Website',
+		image:
+			'https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2ViJTIwd2FsbHBhcGVyfGVufDB8fDB8fA%3D%3D&w=1000&q=80',
+		category: 'history',
+		price: 30,
+	},
+	{
+		name: 'Internet',
+		image: 'https://wallpapercave.com/wp/G2c4FdC.jpg',
+		category: 'history',
+		price: 54,
+	},
+	{
+		name: 'Difference Web And Web-app',
+		image: 'https://wallpapercave.com/wp/wp4312426.jpg',
+		category: 'history',
+		price: 12,
+	},
+
+	{
+		name: 'Writing An Essay',
+		image:
+			'https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d3JpdGluZyUyMGhhbmR8ZW58MHx8MHx8&w=1000&q=80',
+		category: 'writing',
+		price: 54,
+	},
+	{
+		name: 'Professional Essay',
+		image: 'https://wallpapercave.com/wp/wp7110644.jpg',
+		category: 'writing',
+		price: 12,
+	},
+];

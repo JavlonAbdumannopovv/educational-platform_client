@@ -4,64 +4,35 @@ import {
 	Card,
 	CardBody,
 	Flex,
+	FormControl,
+	FormLabel,
 	Grid,
 	HStack,
 	IconButton,
 	Image,
+	Input,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+	ModalOverlay,
+	Select,
 	Text,
 	useColorModeValue,
 	useDisclosure,
-	useToast,
+	VStack,
 } from '@chakra-ui/react';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { CgAdd } from 'react-icons/cg';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import { BooksModal } from 'src/components';
 import SectionTitle from 'src/components/section-title/section-title';
-import { loadImage } from 'src/helpers/image.helper';
-import { useActions } from 'src/hooks/useActions';
-import { useTypedSelector } from 'src/hooks/useTypedSelector';
+import { coursePrice } from 'src/config/constants';
 import { PlanCurriculumIcon } from 'src/icons';
-import { BooksType } from 'src/interfaces/books.interface';
 
 const BooksPageComponent = () => {
-	const [booksValue, setBooksValue] = useState<BooksType | null>(null);
-
 	const priceBackgroundColor = useColorModeValue('gray.200', 'gray.900');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { books } = useTypedSelector(state => state.books);
-	const { deleteBooks } = useActions();
-	const toast = useToast();
-	const { t } = useTranslation();
-
-	const deleteBooksHandler = (id: string) => {
-		const isAgree = confirm('Are you sure?');
-
-		if (isAgree) {
-			deleteBooks({
-				booksId: id,
-				callback: () => {
-					toast({
-						title: t('successfully_deleted'),
-						position: 'top-right',
-						isClosable: true,
-						status: 'success',
-					});
-				},
-			});
-		}
-	};
-
-	const editOpenModal = (book: BooksType) => {
-		setBooksValue(book);
-		onOpen();
-	};
-
-	const createOpenModal = () => {
-		setBooksValue(null);
-		onOpen();
-	};
 
 	return (
 		<>
@@ -69,10 +40,7 @@ const BooksPageComponent = () => {
 				<CardBody>
 					<HStack>
 						<Box w={'30%'}>
-							<SectionTitle
-								title={t('books_section_title', { ns: 'admin' })}
-								subtitle={t('books_section_descr', { ns: 'admin' })}
-							/>
+							<SectionTitle title='Books' subtitle='All books and managing on platform' />
 						</Box>
 						<Flex w={'70%'} justify={'flex-end'}>
 							<PlanCurriculumIcon />
@@ -85,7 +53,7 @@ const BooksPageComponent = () => {
 					colorScheme='facebook'
 					aria-label='Search database'
 					icon={<CgAdd />}
-					onClick={createOpenModal}
+					onClick={onOpen}
 				/>
 			</Flex>
 			<Grid
@@ -94,11 +62,11 @@ const BooksPageComponent = () => {
 				rowGap={20}
 				mt={5}
 			>
-				{books.map(item => (
-					<Box key={item._id} pos={'relative'}>
+				{data.map(item => (
+					<Box key={item.name} pos={'relative'}>
 						<Image
-							src={loadImage(item.image)}
-							alt={item.title}
+							src={item.image}
+							alt={item.name}
 							borderRadius={'lg'}
 							w={'full'}
 							h={'250px'}
@@ -118,27 +86,17 @@ const BooksPageComponent = () => {
 							flexDir={'column'}
 						>
 							<Box>
-								<Text fontSize={'lg'}>{item.title}</Text>
+								<Text fontSize={'lg'}>{item.name}</Text>
 								<Text fontSize={'2xl'}>
 									{item.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
 								</Text>
 							</Box>
 							<HStack>
-								<Button
-									w={'full'}
-									rightIcon={<FaTrash />}
-									onClick={() => deleteBooksHandler(item._id as string)}
-									colorScheme={'red'}
-								>
-									{t('delete_course', { ns: 'instructor' })}
+								<Button w={'full'} rightIcon={<FaTrash />} colorScheme={'red'}>
+									Delete
 								</Button>
-								<Button
-									onClick={() => editOpenModal(item)}
-									w={'full'}
-									rightIcon={<FaEdit />}
-									colorScheme={'green'}
-								>
-									{t('edit_course', { ns: 'instructor' })}
+								<Button w={'full'} rightIcon={<FaEdit />} colorScheme={'green'}>
+									Edit
 								</Button>
 							</HStack>
 						</Flex>
@@ -146,7 +104,46 @@ const BooksPageComponent = () => {
 				))}
 			</Grid>
 
-			<BooksModal isOpen={isOpen} onClose={onClose} booksValue={booksValue} />
+			<Modal isOpen={isOpen} onClose={onClose} isCentered={true} size={'xl'}>
+				<ModalOverlay />
+				<ModalContent>
+					<ModalHeader>Add books</ModalHeader>
+					<ModalCloseButton />
+					<ModalBody>
+						<VStack>
+							<FormControl isRequired>
+								<FormLabel>Name</FormLabel>
+								<Input type='text' h={14} placeholder={'Harry Poter'} colorScheme={'facebook'} />
+							</FormControl>
+							<FormControl isRequired>
+								<FormLabel>Price</FormLabel>
+								<Select
+									borderRadius={'8px'}
+									height={14}
+									focusBorderColor={'green.500'}
+									placeholder={'-'}
+								>
+									{coursePrice.map(option => (
+										<option key={option} value={option}>
+											{option.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+										</option>
+									))}
+								</Select>
+							</FormControl>
+							<FormControl isRequired>
+								<FormLabel>PDF Link</FormLabel>
+								<Input type='text' h={14} colorScheme={'facebook'} />
+							</FormControl>
+						</VStack>
+					</ModalBody>
+
+					<ModalFooter>
+						<Button colorScheme='blue' mr={3} onClick={onClose}>
+							Add books
+						</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
 		</>
 	);
 };
