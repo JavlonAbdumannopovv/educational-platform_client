@@ -42,6 +42,17 @@ import {
 } from 'src/icons';
 import { CourseType } from 'src/interfaces/course.interface';
 
+export const courseCategory = [
+	'Front-End',
+	'Back-End',
+	'Full-Stack',
+	'Mobile Application',
+	'Web Design',
+	'Graphic Design',
+];
+
+export const courseLevel = ['Beginner', 'Intermediate', 'Expert'];
+
 export const navigation = [
 	{
 		title: 'sidebar_title_1',
@@ -156,12 +167,7 @@ export const coursesFilter = [
 	{
 		title: 'filter_category_title',
 		id: 'category',
-		categoryList: [
-			{ name: 'fitler_category_item_1', id: 'web-developments' },
-			{ name: 'fitler_category_item_2', id: 'mobile-application' },
-			{ name: 'fitler_category_item_3', id: 'graphic-design' },
-			{ name: 'fitler_category_item_4', id: 'artificial-intelligence' },
-		],
+		categoryList: courseCategory.map(c => ({ name: c, id: c })),
 	},
 	{
 		title: 'fitler_rating_title',
@@ -186,11 +192,7 @@ export const coursesFilter = [
 	{
 		title: 'filter_level_title',
 		id: 'level',
-		categoryList: [
-			{ name: 'filter_level_item_1', id: 'beginner' },
-			{ name: 'filter_level_item_2', id: 'medium' },
-			{ name: 'filter_level_item_3', id: 'proffessional' },
-		],
+		categoryList: courseLevel.map(c => ({ name: c, id: c })),
 	},
 ];
 
@@ -291,6 +293,15 @@ export const courses: CourseType[] = [
 			avatar: 'https://media.graphassets.com/NfxHACAlR4CkvdhnB3gs',
 		},
 	},
+];
+
+export const createBooksCategory = [
+	'programming',
+	'design',
+	'business',
+	'history',
+	'writing',
+	'lifestyle',
 ];
 
 export const booksCategory = [
@@ -523,39 +534,28 @@ export const instructorUsers = [
 	},
 ];
 
-export const courseLevel = ['Beginner', 'Intermediate', 'Expert'];
-
-export const courseCategory = [
-	'Front-End',
-	'Back-End',
-	'Full-Stack',
-	'Mobile Application',
-	'Web Design',
-	'Graphic Design',
-];
-
 export const coursePrice = [10, 20, 30, 40, 50];
 
 export const courseLng = ['en', 'uz', 'ru', 'tr'];
 
 export const adminSidebar = [
 	{
-		name: 'Users',
+		name: 'user_section_title',
 		icon: FaUserGraduate,
 		route: 'users',
 	},
 	{
-		name: 'Instructors',
+		name: 'instructors_section_title',
 		icon: FaChalkboardTeacher,
 		route: 'instructors',
 	},
 	{
-		name: 'Courses',
+		name: 'courses_section_title',
 		icon: AiOutlineUnorderedList,
 		route: 'courses',
 	},
 	{
-		name: 'Books',
+		name: 'books_section_title',
 		icon: ImBooks,
 		route: 'books',
 	},
