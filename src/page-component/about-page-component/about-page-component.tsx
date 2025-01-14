@@ -36,7 +36,7 @@ const AboutPageComponent = () => {
       </Grid>
     </>
   );
-  // update
+  // update1
 };
 
 export default AboutPageComponent;
