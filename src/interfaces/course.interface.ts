@@ -6,7 +6,7 @@ export interface CourseType {
 	totalHour: number;
 	level: string;
 	price: number;
-	reviewAvg: number;
+	reviewAvarage: number;
 	reviewCount: number;
 	author: AuthorType;
 	tags: string[];
@@ -18,19 +18,8 @@ export interface CourseType {
 	_id: string;
 	language: string;
 	isActive: boolean;
-	updatedAt: Date;
-	allStudents: number;
 }
 export interface AuthorType {
 	fullName: string;
 	avatar: string;
-	job: string;
-}
-
-export interface ReviewType {
-	author: AuthorType;
-	createdAt: Date;
-	updatedAt: Date;
-	rating: number;
-	summary: string;
 }

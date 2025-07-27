@@ -11,21 +11,14 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { AiOutlineDollarCircle } from 'react-icons/ai';
+import { FaFunnelDollar } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
-import { MdAccountBalance, MdOutlineAccountBalanceWallet } from 'react-icons/md';
+import { MdOutlineAccountBalanceWallet } from 'react-icons/md';
 import { SiFuturelearn } from 'react-icons/si';
 import { StatsCard } from 'src/components';
-import { getBalanceObject } from 'src/helpers/total-price.helper';
-import { BalanceType } from 'src/interfaces/instructor.interface';
-import { PaymentService } from 'src/services/payment.service';
 
-const RevenuePageComponent = ({ balance }: { balance: BalanceType }) => {
+const RevenuePageComponent = () => {
 	const { t } = useTranslation();
-
-	const openAccountLinks = async () => {
-		const data = await PaymentService.instructorAccountLink();
-		window.open(data);
-	};
 
 	return (
 		<>
@@ -40,10 +33,7 @@ const RevenuePageComponent = ({ balance }: { balance: BalanceType }) => {
 				/>
 				<StatsCard
 					title={t('payouts', { ns: 'instructor' })}
-					stat={getBalanceObject(balance).payouts.toLocaleString('en-US', {
-						style: 'currency',
-						currency: 'USD',
-					})}
+					stat={Number('1000').toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
 					icon={<SiFuturelearn size={'3em'} />}
 				/>
 				<StatsCard
@@ -58,7 +48,7 @@ const RevenuePageComponent = ({ balance }: { balance: BalanceType }) => {
 						<Heading fontFamily={'mono'} letterSpacing={5}>
 							{t('revenue_report', { ns: 'instructor' })}
 						</Heading>
-						<Icon as={MdAccountBalance} fontSize={60} />
+						<Icon as={FaFunnelDollar} fontSize={60} color={'facebook.400'} />
 					</HStack>
 					<Text>{t('revenue_report_description', { ns: 'instructor' })}</Text>
 					<Divider my={5} />
@@ -66,11 +56,8 @@ const RevenuePageComponent = ({ balance }: { balance: BalanceType }) => {
 						<Heading fontFamily={'mono'} letterSpacing={5}>
 							{t('pending_balance', { ns: 'instructor' })}
 						</Heading>
-						<Text fontSize={40}>
-							{getBalanceObject(balance).payouts.toLocaleString('en-US', {
-								style: 'currency',
-								currency: 'USD',
-							})}
+						<Text fontSize={40} color={'facebook.400'}>
+							{Number('500').toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
 						</Text>
 					</HStack>
 					<Text>{t('pending_balance_description', { ns: 'instructor' })}</Text>
@@ -79,13 +66,7 @@ const RevenuePageComponent = ({ balance }: { balance: BalanceType }) => {
 						<Heading fontFamily={'mono'} letterSpacing={5}>
 							{t('payouts', { ns: 'instructor' })}
 						</Heading>
-						<Icon
-							as={FiSettings}
-							fontSize={60}
-							color={'facebook.400'}
-							cursor={'pointer'}
-							onClick={openAccountLinks}
-						/>
+						<Icon as={FiSettings} fontSize={60} color={'facebook.400'} />
 					</HStack>
 					<Text>{t('payouts_description', { ns: 'instructor' })}</Text>
 				</CardBody>

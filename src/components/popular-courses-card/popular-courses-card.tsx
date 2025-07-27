@@ -1,14 +1,4 @@
-import {
-	Avatar,
-	Box,
-	Divider,
-	Flex,
-	Heading,
-	HStack,
-	Icon,
-	Stack,
-	Text,
-} from '@chakra-ui/react';
+import { Avatar, Box, Divider, Flex, Heading, HStack, Icon, Stack, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { CiViewList } from 'react-icons/ci';
@@ -29,13 +19,9 @@ const PopularCoursesCard = ({ item }: PopularCoursesCardProps) => {
 				/>
 			</Box>
 			<HStack>
-				<Text color={'#e59819'}>{item.reviewAvg || 0}</Text>
-				<ReactStars
-					edit={false}
-					value={item.reviewAvg || 5}
-					color2={'#e59819'}
-				/>
-				<Text opacity={'.8'}>({item.reviewCount})</Text>
+				<Text color={'#e59819'}>5</Text>
+				<ReactStars edit={false} value={5} color2={'#e59819'} />
+				<Text opacity={'.8'}>(3)</Text>
 			</HStack>
 			<Heading fontSize={'xl'}>{item.title}</Heading>
 			<HStack>
@@ -55,18 +41,10 @@ const PopularCoursesCard = ({ item }: PopularCoursesCardProps) => {
 			<Divider />
 			<Flex justify={'space-between'} align={'center'}>
 				<HStack align={'center'}>
-					<Avatar
-						src={item.author.avatar}
-						name={item.author.fullName}
-					/>
+					<Avatar src={item.author.avatar} name={item.author.fullName} />
 					<Text>{item.author.fullName}</Text>
 				</HStack>
-				<Text>
-					{item.price.toLocaleString('en-US', {
-						style: 'currency',
-						currency: 'USD',
-					})}
-				</Text>
+				<Text>{item.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</Text>
 			</Flex>
 		</Stack>
 	);

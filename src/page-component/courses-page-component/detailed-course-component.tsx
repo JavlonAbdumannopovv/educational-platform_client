@@ -1,26 +1,22 @@
 import {
 	Box,
-	Button,
 	Card,
 	CardBody,
-	Divider,
 	Flex,
 	Heading,
-	Icon,
-	Image,
 	Stack,
-	Tab,
-	TabList,
-	Tabs,
 	Text,
+	Icon,
 	useMediaQuery,
-	useToast,
+	Image,
+	Button,
+	Divider,
+	Tabs,
+	TabList,
+	Tab,
 } from '@chakra-ui/react';
-import { format } from 'date-fns';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { BsBarChart } from 'react-icons/bs';
+import { useEffect, useState } from 'react';
 import {
 	FaBook,
 	FaLanguage,
@@ -29,68 +25,33 @@ import {
 	FaUserGraduate,
 	FaUserTie,
 } from 'react-icons/fa';
-import { GiInfinity } from 'react-icons/gi';
-import { MdPlayLesson } from 'react-icons/md';
-import { TbCertificate } from 'react-icons/tb';
-import { TfiAlarmClock, TfiTimer } from 'react-icons/tfi';
 import ReactStars from 'react-stars';
+import { courses } from 'src/config/constants';
+import { CourseType } from 'src/interfaces/course.interface';
+import { TfiAlarmClock, TfiTimer } from 'react-icons/tfi';
+import { format } from 'date-fns';
+import { MdPlayLesson } from 'react-icons/md';
+import { BsBarChart } from 'react-icons/bs';
+import { TbCertificate } from 'react-icons/tb';
+import { GiInfinity } from 'react-icons/gi';
 import { Curriculum, Mentor, Overview, Review } from 'src/components';
-import { loadImage } from 'src/helpers/image.helper';
-import { useActions } from 'src/hooks/useActions';
-import { useTypedSelector } from 'src/hooks/useTypedSelector';
-import {
-	CourseType,
-	ReviewType,
-} from 'src/interfaces/course.interface';
-import { CourseService } from 'src/services/course.service';
+import { useTranslation } from 'react-i18next';
 
 const DetailedCourseComponent = () => {
+	const [course, setData] = useState<CourseType>();
 	const [tabIndex, setTabIndex] = useState(0);
-	const [reviews, setReviews] = useState<ReviewType[]>([]);
-	const [isLoading, setisLoading] = useState(false);
 
-	const { course } = useTypedSelector(state => state.course);
-	const { sections } = useTypedSelector(state => state.section);
-	const { user } = useTypedSelector(state => state.user);
-	const { courses } = useTypedSelector(state => state.cart);
+	const router = useRouter();
 	const [media] = useMediaQuery('(min-width: 592px)');
 	const { t } = useTranslation();
-	const { getSection, addCourseToCart } = useActions();
-	const { push } = useRouter();
-	const toast = useToast();
 
-	const tabHandler = async (idx: number) => {
+	useEffect(() => {
+		const currentCourse = courses.find(c => c.slug === router.query.slug);
+		setData(currentCourse);
+	}, [router.query]);
+
+	const tabHandler = (idx: number) => {
 		setTabIndex(idx);
-		if (idx == 1 && !sections.length) {
-			getSection({ courseId: course?._id, callback: () => {} });
-		} else if (idx == 2 && !reviews.length) {
-			setisLoading(true);
-			const response = await CourseService.getReviews(course?._id);
-			setReviews(response);
-			setisLoading(false);
-		}
-	};
-
-	const navigateUser = () => {
-		if (user?.courses.includes(course?._id as string)) {
-			push(`/courses/dashboard/${course?.slug}`);
-		} else {
-			const existingProduct = courses.find(c => c._id == course?._id);
-
-			if (existingProduct) {
-				toast({
-					title: 'Course already exist in cart',
-					position: 'bottom',
-					status: 'warning',
-				});
-				return;
-			}
-			addCourseToCart(course as CourseType);
-			toast({
-				title: 'Course added successfully',
-				position: 'bottom',
-			});
-		}
 	};
 
 	return (
@@ -103,33 +64,25 @@ const DetailedCourseComponent = () => {
 							<Heading mt={5} fontSize={'3xl'}>
 								{course?.title}
 							</Heading>
-							<Text mt={5}>{course?.exerpt}</Text>
-							<Stack
-								mt={5}
-								direction={!media ? 'column' : 'row'}
-								gap={1}
-							>
+							<Text mt={5}>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit.
+								Laboriosam quaerat exercitationem architecto quos at odio totam,
+								doloribus dolorem asperiores. Animi?
+							</Text>
+							<Stack mt={5} direction={!media ? 'column' : 'row'} gap={1}>
 								<Flex fontSize={'sm'} align={'flex-end'} gap={1}>
-									<Text>{course?.reviewAvg || 0}</Text>
-									<ReactStars
-										edit={false}
-										value={course?.reviewAvg || 5}
-									/>
-									<Text>({course?.reviewCount})</Text>
+									<Text>5.0</Text>
+									<ReactStars edit={false} value={5} />
+									<Text>(10)</Text>
 								</Flex>
 								<Flex align={'center'} fontSize={'sm'} gap={1}>
 									<Icon as={FaUserGraduate} />
-									<Text>{course?.allStudents} O'quvchilar</Text>
+									<Text>100 O'quvchilar</Text>
 								</Flex>
 								<Flex align={'center'} fontSize={'sm'} gap={1}>
 									<Icon as={TfiAlarmClock} />
 									<Text>
-										Oxirgi yangilanish{' '}
-										{course &&
-											format(
-												new Date(course.updatedAt),
-												'dd MMMM, yyyy'
-											)}
+										Oxirgi yangilanish {format(new Date(), 'dd MMMM, yyyy')}
 									</Text>
 								</Flex>
 							</Stack>
@@ -144,12 +97,9 @@ const DetailedCourseComponent = () => {
 									<Image
 										w={'full'}
 										h={'300px'}
-										src={loadImage(course?.previewImage)}
+										src={course?.image}
 										alt={course?.title}
-										style={{
-											objectFit: 'cover',
-											borderRadius: '8px',
-										}}
+										style={{ objectFit: 'cover', borderRadius: '8px' }}
 									/>
 									<Stack
 										mt={5}
@@ -157,23 +107,16 @@ const DetailedCourseComponent = () => {
 										align={'flex-end'}
 										justify={'space-between'}
 									>
-										<Heading fontSize={'2xl'}>
+										<Heading fontSize={'2xl'}>Bepul</Heading>
+										<Text textDecoration={'line-through'}>
 											{course?.price.toLocaleString('en-US', {
 												currency: 'USD',
 												style: 'currency',
 											})}
-										</Heading>
+										</Text>
 									</Stack>
-									<Button
-										mt={5}
-										w={'full'}
-										h={14}
-										colorScheme={'facebook'}
-										onClick={navigateUser}
-									>
-										{user?.courses.includes(course?._id as string)
-											? 'Go'
-											: 'Add to cart'}
+									<Button mt={5} w={'full'} h={14} colorScheme={'facebook'}>
+										{t('enroll', { ns: 'courses' })}
 									</Button>
 									<Box mt={3}>
 										<Flex
@@ -206,8 +149,7 @@ const DetailedCourseComponent = () => {
 												</Text>
 											</Flex>
 											<Text>
-												{course?.totalHour}{' '}
-												{t('hour', { ns: 'courses' })}
+												{course?.totalHour} {t('hour', { ns: 'courses' })}
 											</Text>
 										</Flex>
 										<Divider />
@@ -240,7 +182,7 @@ const DetailedCourseComponent = () => {
 													{t('language', { ns: 'courses' })}
 												</Text>
 											</Flex>
-											<Text>{course?.language}</Text>
+											<Text>English</Text>
 										</Flex>
 										<Divider />
 										<Flex
@@ -315,9 +257,7 @@ const DetailedCourseComponent = () => {
 				<Box w={'full'}>
 					{tabIndex === 0 && <Overview />}
 					{tabIndex === 1 && <Curriculum />}
-					{tabIndex === 2 && (
-						<Review reviews={reviews} isLoading={isLoading} />
-					)}
+					{tabIndex === 2 && <Review />}
 					{tabIndex === 3 && <Mentor />}
 				</Box>
 			</Tabs>

@@ -1,6 +1,5 @@
 import {
 	Avatar,
-	Badge,
 	Box,
 	Button,
 	Flex,
@@ -17,20 +16,16 @@ import {
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
-import {
-	AiOutlineDashboard,
-	AiOutlineLogin,
-	AiOutlineShoppingCart,
-} from 'react-icons/ai';
+import { AiOutlineLogin } from 'react-icons/ai';
 import { BiMenuAltLeft, BiUserCircle } from 'react-icons/bi';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
+import { FiSettings } from 'react-icons/fi';
 import { IoIosLogOut } from 'react-icons/io';
 import { RiAdminFill } from 'react-icons/ri';
 import { TbWorld } from 'react-icons/tb';
 import { language } from 'src/config/constants';
 import { useActions } from 'src/hooks/useActions';
 import { useAuth } from 'src/hooks/useAuth';
-import { useTypedSelector } from 'src/hooks/useTypedSelector';
 import { DarkLogo, LightLogo } from 'src/icons';
 import { HeaderProps } from './header.props';
 
@@ -40,7 +35,6 @@ const Header = ({ onToggle }: HeaderProps) => {
 	const router = useRouter();
 	const { user } = useAuth();
 	const { logout } = useActions();
-	const { courses, books } = useTypedSelector(state => state.cart);
 
 	const onLanguage = (lng: string) => {
 		router.replace(router.asPath);
@@ -69,40 +63,10 @@ const Header = ({ onToggle }: HeaderProps) => {
 		>
 			<Flex h={'full'} justify={'space-between'} align={'center'}>
 				<HStack>
-					<Icon
-						as={BiMenuAltLeft}
-						onClick={onToggle}
-						w={6}
-						h={6}
-						cursor={'pointer'}
-					/>
-					<Link href={'/'}>
-						{colorMode === 'light' ? <DarkLogo /> : <LightLogo />}
-					</Link>
+					<Icon as={BiMenuAltLeft} onClick={onToggle} w={6} h={6} cursor={'pointer'} />
+					<Link href={'/'}>{colorMode === 'light' ? <DarkLogo /> : <LightLogo />}</Link>
 				</HStack>
 				<HStack>
-					<Box pos={'relative'}>
-						<IconButton
-							aria-label='cart'
-							onClick={() => router.push('/shop/cart')}
-							icon={<AiOutlineShoppingCart />}
-							colorScheme={'facebook'}
-							variant={'solid'}
-						/>
-						{[...courses, ...books].length ? (
-							<Badge
-								pos={'absolute'}
-								backgroundColor={'green.500'}
-								top={-2}
-								left={-3}
-								colorScheme={'green'}
-								px={2}
-								py={1}
-							>
-								{[...courses, ...books].length}
-							</Badge>
-						) : null}
-					</Box>
 					<Menu placement='bottom'>
 						<MenuButton
 							as={Button}
@@ -120,11 +84,7 @@ const Header = ({ onToggle }: HeaderProps) => {
 									key={item.lng}
 									onClick={() => onLanguage(item.lng)}
 									icon={<item.icon />}
-									backgroundColor={
-										i18n.resolvedLanguage === item.lng
-											? 'facebook.500'
-											: ''
-									}
+									backgroundColor={i18n.resolvedLanguage === item.lng ? 'facebook.500' : ''}
 								>
 									{item.nativeLng}
 								</MenuItem>
@@ -134,29 +94,14 @@ const Header = ({ onToggle }: HeaderProps) => {
 					<IconButton
 						aria-label='color-mode'
 						onClick={toggleColorMode}
-						icon={
-							colorMode == 'light' ? (
-								<BsFillMoonFill />
-							) : (
-								<BsFillSunFill />
-							)
-						}
+						icon={colorMode == 'light' ? <BsFillMoonFill /> : <BsFillSunFill />}
 						colorScheme={'facebook'}
 						variant={'outline'}
 					/>
 					{user ? (
 						<Menu>
-							<MenuButton
-								as={Button}
-								rounded={'full'}
-								variant={'link'}
-								cursor={'pointer'}
-								minW={0}
-							>
-								<Avatar
-									backgroundColor={'facebook.500'}
-									src={user.avatar}
-								/>
+							<MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
+								<Avatar backgroundColor={'facebook.500'} src={user.avatar} />
 							</MenuButton>
 							<MenuList p={0} m={0}>
 								{user.role === 'INSTRUCTOR' && (
@@ -171,11 +116,11 @@ const Header = ({ onToggle }: HeaderProps) => {
 								)}
 								<MenuItem
 									h={14}
-									onClick={() => router.push('/dashboard')}
+									// onClick={() => router.push('/setting')}
 									fontWeight={'bold'}
-									icon={<AiOutlineDashboard fontSize={17} />}
+									icon={<FiSettings fontSize={17} />}
 								>
-									Dashboard
+									{t('settings', { ns: 'global' })}
 								</MenuItem>
 
 								<MenuItem

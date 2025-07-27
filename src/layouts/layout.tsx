@@ -31,12 +31,7 @@ export const withLayout = <T extends Record<string, unknown> & AppProviderProps>
 	return function withLayoutComponent(props: T): JSX.Element {
 		return (
 			<Layout>
-				<AppProvider
-					course={props.course}
-					courses={props.courses}
-					instructors={props.instructors}
-					books={props.books}
-				>
+				<AppProvider course={props.course} courses={props.courses} instructors={props.instructors}>
 					<Component {...props} />
 				</AppProvider>
 			</Layout>
