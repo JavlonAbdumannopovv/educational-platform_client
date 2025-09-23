@@ -14,9 +14,11 @@ import {
   Tabs,
   TabList,
   Tab,
+  useToast,
+  position,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   FaBook,
   FaLanguage,
@@ -26,15 +28,19 @@ import {
   FaUserTie,
 } from "react-icons/fa";
 import ReactStars from "react-stars";
-import { courses } from "src/config/constants";
-import { CourseType } from "src/interfaces/course.interface";
 import { TfiAlarmClock, TfiTimer } from "react-icons/tfi";
 import { format } from "date-fns";
 import { MdPlayLesson } from "react-icons/md";
 import { BsBarChart } from "react-icons/bs";
 import { TbCertificate } from "react-icons/tb";
 import { GiInfinity } from "react-icons/gi";
-import { Curriculum, Mentor, Overview, Review } from "src/components";
+import {
+  Curriculum,
+  ErrorAlert,
+  Mentor,
+  Overview,
+  Review,
+} from "src/components";
 import { useTranslation } from "react-i18next";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 import { loadImage } from "src/helpers/image.helper";
@@ -46,16 +52,45 @@ const DetailedCourseComponent = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const { course } = useTypedSelector((state) => state.course);
   const { sections } = useTypedSelector((state) => state.section);
-  const { getSection } = useActions();
+  const { user, error, isLoading } = useTypedSelector((state) => state.user);
+  const { getSection, enrollUser, clearError, checkAuth } = useActions();
 
   const [media] = useMediaQuery("(min-width: 592px)");
   const { t } = useTranslation();
+  const router = useRouter();
+  const toast = useToast();
 
   const tabHandler = (idx: number) => {
     if (idx === 1 && !sections.length) {
       getSection({ courseId: course?._id, callback: () => {} });
     }
+
     setTabIndex(idx);
+  };
+
+  const enrollUserHandler = () => {
+    if (!user) {
+      router.push("/auth");
+    }
+
+    console.log(user);
+
+    if (user?.courses?.includes(course?._id as string)) {
+      router.push(`/courses/dashboard/${course?.slug}`);
+    } else {
+      enrollUser({
+        courseId: course?._id as string,
+        callback: () => {
+          checkAuth()
+          router.push(`/courses/dashboard/${course?.slug}`);
+          toast({
+            title: "Kurs muvaqqiyatli ro'yxatga qo'shildi",
+            position: "top-right",
+            isClosable: true,
+          });
+        },
+      });
+    }
   };
 
   return (
@@ -116,7 +151,23 @@ const DetailedCourseComponent = () => {
                       })}
                     </Heading>
                   </Stack>
-                  <Button mt={5} w={"full"} h={14} colorScheme={"facebook"}>
+                  <>
+                    {error && (
+                      <ErrorAlert
+                        title={error as string}
+                        clearHandler={clearError}
+                      />
+                    )}
+                  </>
+                  <Button
+                    mt={5}
+                    w={"full"}
+                    h={14}
+                    colorScheme={"facebook"}
+                    onClick={enrollUserHandler}
+                    isLoading={isLoading}
+                    loadingText={`${t("loading", { ns: "global" })}`}
+                  >
                     {t("enroll", { ns: "courses" })}
                   </Button>
                   <Box mt={3}>
