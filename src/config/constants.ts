@@ -1,8 +1,14 @@
-import { AiFillAmazonCircle, AiOutlineDashboard, AiOutlineDollar } from 'react-icons/ai';
+import {
+	AiFillAmazonCircle,
+	AiOutlineDashboard,
+	AiOutlineDollar,
+	AiOutlineUnorderedList,
+} from 'react-icons/ai';
 import { CiViewList } from 'react-icons/ci';
 import {
 	FaApplePay,
 	FaBookReader,
+	FaChalkboardTeacher,
 	FaDraftingCompass,
 	FaFirstdraft,
 	FaListAlt,
@@ -10,6 +16,7 @@ import {
 	FaUserGraduate,
 } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
+import { ImBooks } from 'react-icons/im';
 import { MdImportContacts, MdOutlineContactMail, MdOutlineCreateNewFolder } from 'react-icons/md';
 import { RiMoneyDollarBoxLine } from 'react-icons/ri';
 import { SiAmd, SiCisco, SiLogitech, SiSpotify } from 'react-icons/si';
@@ -286,6 +293,15 @@ export const courses: CourseType[] = [
 	},
 ];
 
+export const createBooksCategory = [
+	'programming',
+	'design',
+	'business',
+	'history',
+	'writing',
+	'lifestyle',
+];
+
 export const booksCategory = [
 	{
 		label: 'filter_all_category',
@@ -478,6 +494,44 @@ export const courseusers = [
 	},
 ];
 
+export const instructorUsers = [
+	{
+		id: 1,
+		email: 'ab@gmail.com',
+		fullName: 'Samar Badriddinov',
+		job: 'Software Engineer',
+		socialMedia: 'https://youtube.com',
+	},
+	{
+		id: 2,
+		email: 'ab@gmail.com',
+		fullName: 'Osman Ali',
+		job: 'JavaScript developer',
+		socialMedia: 'https://youtube.com',
+	},
+	{
+		id: 3,
+		email: 'ab@gmail.com',
+		fullName: 'Shox Abdulloh',
+		job: 'ReactJS developer',
+		socialMedia: 'https://youtube.com',
+	},
+	{
+		id: 4,
+		fullName: 'Abdulaziz Alimov',
+		email: 'ab@gmail.com',
+		job: 'Software Engineer',
+		socialMedia: 'https://youtube.com',
+	},
+	{
+		id: 5,
+		fullName: 'Yusuf Khamdamov',
+		email: 'ab@gmail.com',
+		job: 'Backend Engineer',
+		socialMedia: 'https://youtube.com',
+	},
+];
+
 export const courseLevel = ['Beginner', 'Intermediate', 'Expert'];
 
 export const courseCategory = [
@@ -492,3 +546,26 @@ export const courseCategory = [
 export const coursePrice = [10, 20, 30, 40, 50];
 
 export const courseLng = ['en', 'uz', 'ru', 'tr'];
+
+export const adminSidebar = [
+	{
+		name: 'user_section_title',
+		icon: FaUserGraduate,
+		route: 'users',
+	},
+	{
+		name: 'instructors_section_title',
+		icon: FaChalkboardTeacher,
+		route: 'instructors',
+	},
+	{
+		name: 'courses_section_title',
+		icon: AiOutlineUnorderedList,
+		route: 'courses',
+	},
+	{
+		name: 'books_section_title',
+		icon: ImBooks,
+		route: 'books',
+	},
+];
