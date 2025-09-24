@@ -11,7 +11,9 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import $axios from "src/api/axios";
+import { getLessonUrl } from "src/config/api.config";
 import { getLessonTime } from "src/helpers/time.helper";
 import { useActions } from "src/hooks/useActions";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
@@ -20,25 +22,45 @@ import { LessonType, SectionType } from "src/interfaces/instructor.interface";
 <Divider />;
 
 const DashboardAccordionItem = ({ section }: { section: SectionType }) => {
+  const [isComplete, setIsComplete] = useState(false);
   const { user } = useTypedSelector((state) => state.user);
   const { course } = useTypedSelector((state) => state.course);
- 
+
   const { getLesson } = useActions();
   const router = useRouter();
 
-	const onLesson = (lesson: LessonType) => {
-		getLesson(lesson);
-		localStorage.setItem(`${course?._id}`, lesson._id);
-		const link = `/courses/dashboard/${course?.slug}`;
+  const onLesson = (lesson: LessonType) => {
+    getLesson(lesson);
+    localStorage.setItem(`${course?._id}`, lesson._id);
+    const link = `/courses/dashboard/${course?.slug}`;
 
-		router.replace(
-			{ pathname: link, query: { lesson: lesson._id } },
-			undefined,
-			{ shallow: true }
-		);
-	};
+    router.replace(
+      { pathname: link, query: { lesson: lesson._id } },
+      undefined,
+      { shallow: true }
+    );
+  };
 
+  const onComplete = async (
+    evt: ChangeEvent<HTMLInputElement>,
+    lessonID: string
+  ) => {
+    setIsComplete(true);
 
+    console.log(user)
+
+    try {
+      if (evt.target.checked) {
+        await $axios.put(`${getLessonUrl("complete")}/${lessonID}`);
+      } else {
+        await $axios.put(`${getLessonUrl("uncomplete")}/${lessonID}`);
+      }
+      setIsComplete(false);
+    } catch (error) {
+      console.log(error);
+      setIsComplete(false);
+    }
+  };
 
   return (
     <AccordionItem key={section._id} borderRadius={"8px"} mt={5}>
@@ -86,15 +108,13 @@ const DashboardAccordionItem = ({ section }: { section: SectionType }) => {
                 {user ? (
                   <Checkbox
                     colorScheme={"green"}
-                    // onChange={e =>
-                    // onComplete(e, lesson._id)
-                    // }
+                    onChange={(e) => onComplete(e, lesson._id)}
                     defaultChecked={lesson.completed.includes(
-                      user._id as string
+                      user.id as string
                     )}
-                    // cursor={
-                    // 	isComplete ? 'progress' : 'pointer'
-                    // }
+                    cursor={
+                    	isComplete ? 'progress' : 'pointer'
+                    }
                   />
                 ) : null}
               </Flex>

@@ -14,7 +14,7 @@ import { DashboardAccordionItem } from "src/components";
 import { useActions } from "src/hooks/useActions";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 
-const Sidebar = () => {
+const Sidebar = ({...props}) => {
   const [moduleIndex, setModuleIndex] = useState<number>(0);
   const { sections, pendingSection } = useTypedSelector(
     (state) => state.section
@@ -61,6 +61,7 @@ const Sidebar = () => {
         "&::-webkit-scrollbar-track": { width: "1px" },
         "&::-webkit-scrollbar-thumb": { background: "transparent" },
       }}
+      {...props}
     >
       {pendingSection ? (
         <Center alignItems={"center"} h={"full"}>

@@ -13,13 +13,21 @@ import Header from "./header";
 import Sidebar from "./sidebar";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 
+<Divider />;
 const DashboardPageComponent = () => {
   const { lesson } = useTypedSelector((state) => state.lesson);
 
   return (
     <Box>
       <Header />
-      <Sidebar />
+      <Sidebar
+        display={{ base: "none", lg: "block" }}
+        position={"fixed"}
+        top={"12vh"}
+        right={"2vh"}
+        bottom={"2vh"}
+        w={"400px"}
+      />
 
       <Box
         mt={"12vh"}
@@ -52,6 +60,13 @@ const DashboardPageComponent = () => {
               dangerouslySetInnerHTML={{ __html: lesson.material }}
             ></Box>
           </Stack>
+
+          <Sidebar
+            display={{ base: "block", lg: "none" }}
+            pos={"relative"}
+            width={"100%"}
+            mb={10}
+          />
         </Container>
       </Box>
     </Box>
