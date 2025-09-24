@@ -8,13 +8,14 @@ import {
   Spinner,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { GoPrimitiveDot } from "react-icons/go";
 import { DashboardAccordionItem } from "src/components";
 import { useActions } from "src/hooks/useActions";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 
 const Sidebar = () => {
+  const [moduleIndex, setModuleIndex] = useState<number>(0);
   const { sections, pendingSection } = useTypedSelector(
     (state) => state.section
   );
@@ -24,6 +25,20 @@ const Sidebar = () => {
   useEffect(() => {
     getSection({ courseId: course?._id, callback: () => {} });
   }, [course]);
+
+	useEffect(() => {
+		const lessonId = localStorage.getItem(course?._id as string);
+
+		const currentModuleId = sections.find(item =>
+			item.lessons.map(c => c._id).includes(lessonId as string)
+		)?._id;
+
+		const findIndex = sections
+			.map(c => c._id)
+			.indexOf(currentModuleId as string);
+
+		setModuleIndex(findIndex === -1 ? 0 : findIndex);
+	}, [sections]);
 
   return (
     <Box
@@ -66,7 +81,7 @@ const Sidebar = () => {
             ta Darslik
           </Flex>
 
-          <Accordion mb={5} mr={2} allowToggle>
+          <Accordion mb={5} mr={2} allowToggle index={moduleIndex }>
             {sections.map((section) => (
               <DashboardAccordionItem key={section._id} section={section} />
             ))}

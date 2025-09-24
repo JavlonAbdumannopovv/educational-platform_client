@@ -11,16 +11,34 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { getLessonTime } from "src/helpers/time.helper";
+import { useActions } from "src/hooks/useActions";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
-import { SectionType } from "src/interfaces/instructor.interface";
+import { LessonType, SectionType } from "src/interfaces/instructor.interface";
 
 <Divider />;
 
 const DashboardAccordionItem = ({ section }: { section: SectionType }) => {
   const { user } = useTypedSelector((state) => state.user);
+  const { course } = useTypedSelector((state) => state.course);
+ 
+  const { getLesson } = useActions();
   const router = useRouter();
+
+	const onLesson = (lesson: LessonType) => {
+		getLesson(lesson);
+		localStorage.setItem(`${course?._id}`, lesson._id);
+		const link = `/courses/dashboard/${course?.slug}`;
+
+		router.replace(
+			{ pathname: link, query: { lesson: lesson._id } },
+			undefined,
+			{ shallow: true }
+		);
+	};
+
+
 
   return (
     <AccordionItem key={section._id} borderRadius={"8px"} mt={5}>
@@ -46,17 +64,15 @@ const DashboardAccordionItem = ({ section }: { section: SectionType }) => {
             }}
             transition={"all .3s ease"}
             borderRadius={"md"}
-            // onClick={() => onLesson(lesson)}
+            onClick={() => onLesson(lesson)}
             bg={
               router.query.lessonId === lesson._id
                 ? useColorModeValue("gray.100", "gray.800")
                 : "transparent"
             }
-            fontWeight={
-              router.query.lessonId === lesson._id ? "bold" : "normal"
-            }
+            fontWeight={router.query.lesson === lesson._id ? "bold" : "normal"}
             color={
-              router.query.lessonId === lesson._id ? "green.500" : "normal"
+              router.query.lesson === lesson._id ? "facebook.500" : "normal"
             }
           >
             <Flex
