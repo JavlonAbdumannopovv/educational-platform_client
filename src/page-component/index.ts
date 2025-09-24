@@ -22,3 +22,4 @@ export { default as EditDetailedCoursePageComponent } from './instructor-page-co
 export { default as RevenuePageComponent } from './instructor-page-component/revenue-page-component';
 export { default as InstructorStudentsPageComponent } from './instructor-page-component/students-page-component';
 export { default as PricingPageComponent } from './pricing-page-component/pricing-page-component';
+export {default as DashboardPageComponent} from "./courses-page-component/dashboard-page-component/dashboard-page-component";
