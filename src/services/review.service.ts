@@ -26,4 +26,10 @@ export const ReviewService = {
 
     return response.data;
   },
+
+  async getReviews(courseId: string) {
+    const response = await $axios.get(`${getReviewUrl("get")}/${courseId}`);
+
+    return response.data;
+  },
 };

@@ -18,7 +18,7 @@ import {
   position,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaBook,
   FaLanguage,
@@ -45,10 +45,12 @@ import { useTranslation } from "react-i18next";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 import { loadImage } from "src/helpers/image.helper";
 import { useActions } from "src/hooks/useActions";
+import { ReviewService } from "src/services/review.service";
 
 <Divider />;
 
 const DetailedCourseComponent = () => {
+  const [reviews, setReviews] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
   const { course } = useTypedSelector((state) => state.course);
   const { sections } = useTypedSelector((state) => state.section);
@@ -59,6 +61,19 @@ const DetailedCourseComponent = () => {
   const { t } = useTranslation();
   const router = useRouter();
   const toast = useToast();
+console.log(course);
+  const getAllReviews = async () => {
+    try {
+      const allReviews = await ReviewService.getReviews(course?._id as string);
+      setReviews(allReviews);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllReviews();
+  }, [course]);
 
   const tabHandler = (idx: number) => {
     if (idx === 1 && !sections.length) {
@@ -72,16 +87,13 @@ const DetailedCourseComponent = () => {
     if (!user) {
       router.push("/auth");
     }
-
-    console.log(user);
-
     if (user?.courses?.includes(course?._id as string)) {
       router.push(`/courses/dashboard/${course?.slug}`);
     } else {
       enrollUser({
         courseId: course?._id as string,
         callback: () => {
-          checkAuth()
+          checkAuth();
           router.push(`/courses/dashboard/${course?.slug}`);
           toast({
             title: "Kurs muvaqqiyatli ro'yxatga qo'shildi",
@@ -106,13 +118,13 @@ const DetailedCourseComponent = () => {
               <Text mt={5}>{course?.exerpt}</Text>
               <Stack mt={5} direction={!media ? "column" : "row"} gap={1}>
                 <Flex fontSize={"sm"} align={"flex-end"} gap={1}>
-                  <Text>5.0</Text>
-                  <ReactStars edit={false} value={5} />
-                  <Text>(10)</Text>
+                  <Text>{course?.reviewAvg}</Text>
+                  <ReactStars edit={false} value={course?.reviewAvg} />
+                  <Text>({course?.reviewCount})</Text>
                 </Flex>
                 <Flex align={"center"} fontSize={"sm"} gap={1}>
                   <Icon as={FaUserGraduate} />
-                  <Text>100 O'quvchilar</Text>
+                  <Text>{course?.allStudents} O'quvchilar</Text>
                 </Flex>
                 <Flex align={"center"} fontSize={"sm"} gap={1}>
                   <Icon as={TfiAlarmClock} />
@@ -309,7 +321,7 @@ const DetailedCourseComponent = () => {
         <Box w={"full"}>
           {tabIndex === 0 && <Overview />}
           {tabIndex === 1 && <Curriculum />}
-          {tabIndex === 2 && <Review />}
+          {tabIndex === 2 && <Review reviews={reviews} />}
           {tabIndex === 3 && <Mentor />}
         </Box>
       </Tabs>

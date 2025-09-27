@@ -42,25 +42,27 @@ const CoursesPageComponent = () => {
 
   useEffect(() => {
     setAllCourses(courses);
-    
-		const getCoursesByLng = async (lng: string) => {
-			setIsLoading(true);
-			return await AppService.getCourses(lng);
-		};
 
-		if (filter.id == 'category') {
-			setAllCourses(courses.filter(c => c.category == filter.category));
-		} else if (filter.id == 'rating') {
-			setAllCourses(courses.filter(c => c.reviewAvarage >= Number(filter.category)));
-		} else if (filter.id == 'level') {
-			setAllCourses(courses.filter(c => c.level == filter.category));
-		} else if (filter.id == 'language') {
-			getCoursesByLng(filter.category).then(res => {
-				setIsLoading(false);
-				setAllCourses(res);
-			});
-		}
-	}, [courses, filter]);
+    const getCoursesByLng = async (lng: string) => {
+      setIsLoading(true);
+      return await AppService.getCourses(lng);
+    };
+
+    if (filter.id == "category") {
+      setAllCourses(courses.filter((c) => c.category == filter.category));
+    } else if (filter.id == "rating") {
+      setAllCourses(
+        courses.filter((c) => c.reviewAvg >= Number(filter.category))
+      );
+    } else if (filter.id == "level") {
+      setAllCourses(courses.filter((c) => c.level == filter.category));
+    } else if (filter.id == "language") {
+      getCoursesByLng(filter.category).then((res) => {
+        setIsLoading(false);
+        setAllCourses(res);
+      });
+    }
+  }, [courses, filter]);
 
   return (
     <>
@@ -105,19 +107,19 @@ const CoursesPageComponent = () => {
             />
           ))}
         </Box>
-        <Box w={{ base: '100%', lg: '70%' }}>
-					{isLoading ? (
-						<Flex h={'60vh'} justify={'center'} align={'center'}>
-							<Spinner />
-						</Flex>
-					) : (
-						<>
-							{allCourses.map(item => (
-								<AllCoursesCard key={item.title} course={item} />
-							))}
-						</>
-					)}
-				</Box>
+        <Box w={{ base: "100%", lg: "70%" }}>
+          {isLoading ? (
+            <Flex h={"60vh"} justify={"center"} align={"center"}>
+              <Spinner />
+            </Flex>
+          ) : (
+            <>
+              {allCourses.map((item) => (
+                <AllCoursesCard key={item.title} course={item} />
+              ))}
+            </>
+          )}
+        </Box>
       </Flex>
     </>
   );

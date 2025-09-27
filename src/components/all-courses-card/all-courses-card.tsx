@@ -41,9 +41,13 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
           />
           <Stack>
             <HStack>
-              <Text color={"#e59819"}>5</Text>
-              <ReactStars edit={false} value={5} color2={"#e59819"} />
-              <Text opacity={".8"}>(5)</Text>
+              <Text color={"#e59819"}>{course.reviewAvg || 0}</Text>
+              <ReactStars
+                edit={false}
+                value={course.reviewAvg || 5}
+                color2={"#e59819"}
+              />
+              <Text opacity={".8"}>({course.reviewCount || 0})</Text>
             </HStack>
             <Heading fontSize={"xl"}>{course.title}</Heading>
             <Text>
@@ -55,7 +59,10 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
               fontSize={"14px"}
               direction={{ base: "column", sm: "row" }}
             >
-              <Avatar src={course.author.avatar} name={course.author.fullName}/>
+              <Avatar
+                src={course.author.avatar}
+                name={course.author.fullName}
+              />
               <HStack>
                 <Flex align={"center"} gap={1}>
                   <Icon as={CiViewList} />
