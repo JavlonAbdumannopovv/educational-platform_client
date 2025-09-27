@@ -25,3 +25,20 @@ export interface AuthorType {
   avatar: string;
   job: string;
 }
+
+export interface ReviewType {
+  course: string;
+  author: string;
+  rating: number;
+  summary: string;
+}
+
+export interface GetUserByDto {
+  course: string;
+  author: string;
+}
+
+export interface EditReviewDto {
+  rating: number;
+  summary: string;
+}

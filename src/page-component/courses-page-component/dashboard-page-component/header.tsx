@@ -2,6 +2,8 @@ import {
   Box,
   Button,
   Divider,
+  Flex,
+  HStack,
   IconButton,
   Modal,
   ModalBody,
@@ -11,14 +13,17 @@ import {
   ModalHeader,
   ModalOverlay,
   Stack,
+  Text,
   useColorMode,
   useColorModeValue,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { Form, Formik, FormikValues } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 import { FaRegCommentDots, FaTelegram } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
@@ -28,10 +33,12 @@ import TextAreaField from "src/components/text-area-field/text-area-field";
 import TextFiled from "src/components/text-filed/text-filed";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 import { DarkLogo, LightLogo } from "src/icons";
+import { ReviewService } from "src/services/review.service";
 
 <Divider />;
 
 const initialValue = {
+  id: "",
   name: "",
   email: "",
   rating: 0,
@@ -40,14 +47,52 @@ const initialValue = {
 
 const Header = () => {
   const [reviewVal, setReviewVal] = useState(initialValue);
+  const [isLoading, setIsLoading] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const { course } = useTypedSelector((state) => state.course);
   const { user } = useTypedSelector((state) => state.user);
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const onReviewModal = (formikValues: FormikValues) => {
-    console.log(formikValues);
+  const { t } = useTranslation();
+  const toast = useToast();
+
+  const onReviewModal = async (formikValues: FormikValues) => {
+    if (reviewVal.summary === "") {
+      try {
+        setIsLoading(true);
+        await ReviewService.createReview({
+          course: course?._id as string,
+          author: user?.id as string,
+          rating: formikValues.rating,
+          summary: formikValues.summary,
+        });
+        getByUser();
+        onClose();
+        setIsLoading(false);
+        toast({
+          title: "Successfully created review",
+          position: "top-right",
+          isClosable: true,
+        });
+      } catch (error) {}
+    } else {
+      setIsLoading(true);
+
+      await ReviewService.editReview(reviewVal.id, {
+        rating: formikValues.rating,
+        summary: formikValues.summary,
+      });
+
+      getByUser();
+      setIsLoading(false);
+      onClose();
+      toast({
+        title: "Successfully edited review",
+        position: "top-right",
+        isClosable: true,
+      });
+    }
   };
 
   useEffect(() => {
@@ -56,6 +101,30 @@ const Header = () => {
       name: user?.fullName as string,
       email: user?.email as string,
     });
+  }, [user]);
+
+  const getByUser = async () => {
+    try {
+      const existReview = await ReviewService.getByUser({
+        course: course?._id as string,
+        author: user?.id as string,
+      });
+      if (existReview.course) {
+        setReviewVal({
+          ...reviewVal,
+          id: existReview._id,
+          name: user?.fullName as string,
+          email: user?.email as string,
+          rating: existReview.rating,
+          summary: existReview.summary,
+        });
+        console.log(reviewVal);
+      }
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    getByUser();
   }, [user]);
 
   return (
@@ -124,7 +193,7 @@ const Header = () => {
         <ModalContent>
           <ModalHeader>
             Izohingiz
-          <ModalCloseButton />
+            <ModalCloseButton />
           </ModalHeader>
           <Divider />
           <Formik
@@ -136,13 +205,20 @@ const Header = () => {
               <Form>
                 <ModalBody>
                   <Stack gap={4}>
-                    <TextFiled name="name" label="Ismingiz" disabled={true} />
-                    <TextFiled
-                      name="email"
-                      label="Elektron pochtangiz"
-                      disabled={true}
-                    />
+                    <Flex gap={2}>
+                      <TextFiled
+                        name="email"
+                        label="Elektron pochtangiz"
+                        disabled={true}
+                      />
+                      <TextFiled name="name" label="Ismingiz" disabled={true} />
+                    </Flex>
                     <Box mt={2}>
+                      <Text>
+                        Baholang
+                        {" "}
+                        <Box as="span" color={"red.300"}>*</Box>
+                      </Text>
                       <ReactStars
                         edit={true}
                         size={20}
@@ -166,10 +242,11 @@ const Header = () => {
                     h={14}
                     colorScheme={"facebook"}
                     w={"full"}
-                    isActive
                     type="submit"
+                    isLoading={isLoading}
+                    loadingText={`${t("loading", { ns: "global" })}`}
                   >
-                    Submit
+                    {reviewVal.summary === "" ? "Submit" : "Edit"}
                   </Button>
                 </ModalFooter>
               </Form>
