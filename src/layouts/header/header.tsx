@@ -116,11 +116,11 @@ const Header = ({ onToggle }: HeaderProps) => {
 								)}
 								<MenuItem
 									h={14}
-									// onClick={() => router.push('/setting')}
+									onClick={() => router.push('/dashboard')}
 									fontWeight={'bold'}
 									icon={<FiSettings fontSize={17} />}
 								>
-									{t('settings', { ns: 'global' })}
+                  Dashboard
 								</MenuItem>
 
 								<MenuItem
