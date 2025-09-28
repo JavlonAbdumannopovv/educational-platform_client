@@ -10,4 +10,6 @@ export interface UserType {
   avatar?: string;
   job?: string;
   courses?: string[];
+  bio: string;
+  birthday: string;
 }
