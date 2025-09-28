@@ -1,11 +1,10 @@
-import { AllCoursesCard } from "src/components";
-import { courses } from "src/config/constants";
+import { UserAllCoursesCard } from "src/components";
 
-const MyCourses = () => {
+const MyCourses = ({courses}) => {
   return (
     <>
       {courses.map((course) => (
-        <AllCoursesCard course={course} />
+        <UserAllCoursesCard course={course} />
       ))}
     </>
   );

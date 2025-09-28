@@ -50,10 +50,7 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
               <Text opacity={".8"}>({course.reviewCount || 0})</Text>
             </HStack>
             <Heading fontSize={"xl"}>{course.title}</Heading>
-            <Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Praesentium nostrum laboriosam est ut.
-            </Text>
+            <Text>{course.exerpt}</Text>
             <Flex
               gap={2}
               fontSize={"14px"}

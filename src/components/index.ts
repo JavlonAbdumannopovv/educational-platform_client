@@ -29,3 +29,4 @@ export { default as StatsCard } from "./stats-card/stats-card";
 export { default as Testimonials } from "./testimonials/testimonials";
 export { default as Verification } from "./verification/verification";
 export { default as DashboardAccordionItem } from "./dashboard-accordion-item/dashboard-accordion-item";
+export { default as UserAllCoursesCard } from "./user-all-courses-card/user-all-courses-card";
