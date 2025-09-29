@@ -16,10 +16,19 @@ import { SiGoogleanalytics } from "react-icons/si";
 import ReactStars from "react-stars";
 import { loadImage } from "src/helpers/image.helper";
 import { PopularCoursesCardProps } from "./popular-courses-card.props";
+import { useRouter } from "next/router";
 
 const PopularCoursesCard = ({ item }: PopularCoursesCardProps) => {
+  const { push } = useRouter();
+
   return (
-    <Stack key={item.title} spacing={3} p={3} cursor={"pointer"}>
+    <Stack
+      key={item.title}
+      spacing={3}
+      p={3}
+      cursor={"pointer"}
+      onClick={() => push(`courses/${item.slug}`)}
+    >
       <Box pos={"relative"} w={"full"} h={"210px"}>
         <Image
           src={loadImage(item.previewImage)}
@@ -55,7 +64,10 @@ const PopularCoursesCard = ({ item }: PopularCoursesCardProps) => {
       <Divider />
       <Flex justify={"space-between"} align={"center"}>
         <HStack align={"center"}>
-          <Avatar src={item.author.avatar} name={item.author.fullName} />
+          <Avatar
+            src={loadImage(item.author.avatar)}
+            name={item.author.fullName}
+          />
           <Text>{item.author.fullName}</Text>
         </HStack>
         <Text>

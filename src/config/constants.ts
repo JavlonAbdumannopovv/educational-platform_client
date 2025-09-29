@@ -1,7 +1,6 @@
 import {
 	AiFillAmazonCircle,
 	AiOutlineDashboard,
-	AiOutlineDollar,
 	AiOutlineUnorderedList,
 } from 'react-icons/ai';
 import { CiViewList } from 'react-icons/ci';
@@ -17,7 +16,7 @@ import {
 } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
 import { ImBooks } from 'react-icons/im';
-import { MdImportContacts, MdOutlineContactMail, MdOutlineCreateNewFolder } from 'react-icons/md';
+import { MdOutlineContactMail, MdOutlineCreateNewFolder } from 'react-icons/md';
 import { RiMoneyDollarBoxLine } from 'react-icons/ri';
 import { SiAmd, SiCisco, SiLogitech, SiSpotify } from 'react-icons/si';
 import {
@@ -71,11 +70,11 @@ export const navigation = [
 				route: '/books',
 				icon: FaBookReader,
 			},
-			{
-				label: 'sidebar_title_1_articles',
-				route: '/articles',
-				icon: MdImportContacts,
-			},
+			// {
+			// 	label: 'sidebar_title_1_articles',
+			// 	route: '/articles',
+			// 	icon: MdImportContacts,
+			// },
 		],
 	},
 	{
@@ -91,11 +90,11 @@ export const navigation = [
 				route: '/contact',
 				icon: MdOutlineContactMail,
 			},
-			{
-				label: 'sidebar_title_2_pricing',
-				route: '/pricing',
-				icon: AiOutlineDollar,
-			},
+			// {
+			// 	label: 'sidebar_title_2_pricing',
+			// 	route: '/pricing',
+			// 	icon: AiOutlineDollar,
+			// },
 			{
 				label: 'sidebar_title_2_faq',
 				route: '/faq',

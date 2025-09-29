@@ -61,4 +61,14 @@ export const AuthValidation = {
         .required("confirm_password_is_required"),
     });
   },
+
+  contactUs() {
+    return Yup.object({
+      email: Yup.string()
+        .email("email_is_invalid")
+        .required("email_is_required"),
+      name: Yup.string().required("first_name_required"),
+      message: Yup.string(),
+    });
+  },
 };

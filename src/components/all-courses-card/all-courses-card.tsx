@@ -7,7 +7,6 @@ import {
   Heading,
   HStack,
   Icon,
-  Image,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -18,6 +17,7 @@ import { SiGoogleanalytics } from "react-icons/si";
 import ReactStars from "react-stars";
 import { AllCoursesCardProps } from "./all-courses-card.props";
 import { loadImage } from "src/helpers/image.helper";
+import Image from "next/image";
 
 const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
   const router = useRouter();
@@ -28,17 +28,22 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
     <>
       <Box py={4}>
         <Flex gap={4} direction={{ base: "column", md: "row" }}>
-          <Image
-            src={loadImage(course.previewImage)}
-            alt={course.title}
-            w={{ base: "full", md: "250px" }}
+          <Box
+            position={"relative"}
+            width={{ base: "full", md: "30%" }}
             h={"250px"}
-            borderRadius={"lg"}
-            objectFit={"cover"}
             onClick={onDetailedCourse}
             cursor={"pointer"}
-          />
-          <Stack>
+          >
+            <Image
+              src={loadImage(course.previewImage)}
+              alt={course.title}
+              fill
+              style={{ objectFit: "cover", borderRadius: "10px" }}
+            />
+          </Box>
+
+          <Stack w={"70%"}>
             <HStack>
               <Text color={"#e59819"}>{course.reviewAvg || 0}</Text>
               <ReactStars
@@ -49,14 +54,18 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
               <Text opacity={".8"}>({course.reviewCount || 0})</Text>
             </HStack>
             <Heading fontSize={"xl"}>{course.title}</Heading>
-            <Text>{course.exerpt}</Text>
+            <Text>
+              {course.exerpt.length >= 200
+                ? course.exerpt.slice(0, 200)
+                : course.exerpt} ...
+            </Text>
             <Flex
               gap={2}
               fontSize={"14px"}
               direction={{ base: "column", sm: "row" }}
             >
               <Avatar
-                src={course.author.avatar}
+                src={loadImage(course.author.avatar)}
                 name={course.author.fullName}
               />
               <HStack>

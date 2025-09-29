@@ -5,7 +5,6 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Button,
   Flex,
   Input,
   Radio,
@@ -26,7 +25,13 @@ import {
 } from "./courses-page-component.props";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 import { CourseType } from "src/interfaces/course.interface";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { AppService } from "src/services/app.service";
 
 const CoursesPageComponent = () => {
@@ -34,11 +39,22 @@ const CoursesPageComponent = () => {
     id: "",
     category: "",
   });
+  const [searchValue, setSearchValue] = useState<string>("");
   const [allCourses, setAllCourses] = useState<CourseType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { t } = useTranslation();
   const { courses } = useTypedSelector((state) => state.course);
+
+  const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+    setAllCourses(
+      courses.filter(
+        (c) =>
+          c.title.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1
+      )
+    );
+  };
 
   useEffect(() => {
     setAllCourses(courses);
@@ -78,16 +94,9 @@ const CoursesPageComponent = () => {
           color={"gray.900"}
           placeholder={t("search_input_placeholder", { ns: "courses" }) || ""}
           _placeholder={{ color: "gray.500" }}
+          value={searchValue}
+          onChange={searchHandler}
         />
-        <Button
-          pos={"absolute"}
-          right={2}
-          top={2}
-          colorScheme={"facebook"}
-          zIndex={999}
-        >
-          {t("search_input_btn", { ns: "courses" })}
-        </Button>
       </Box>
       <Flex mt={5} gap={5} direction={{ base: "column", lg: "row" }}>
         <Box
