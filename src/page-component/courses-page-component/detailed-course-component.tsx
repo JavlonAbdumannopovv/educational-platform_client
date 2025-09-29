@@ -15,7 +15,6 @@ import {
   TabList,
   Tab,
   useToast,
-  position,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -61,7 +60,6 @@ const DetailedCourseComponent = () => {
   const { t } = useTranslation();
   const router = useRouter();
   const toast = useToast();
-console.log(course);
   const getAllReviews = async () => {
     try {
       const allReviews = await ReviewService.getReviews(course?._id as string);
@@ -77,7 +75,12 @@ console.log(course);
 
   const tabHandler = (idx: number) => {
     if (idx === 1 && !sections.length) {
-      getSection({ courseId: course?._id, callback: () => {} });
+      getSection({
+        courseId: course?._id,
+        callback: () => {
+          console.log(course);
+        },
+      });
     }
 
     setTabIndex(idx);
@@ -87,7 +90,7 @@ console.log(course);
     if (!user) {
       router.push("/auth");
     }
-    if (user?.courses?.includes(course?._id as string)) {
+    if ((user?.courses as string[]).includes(course?._id as string)) {
       router.push(`/courses/dashboard/${course?.slug}`);
     } else {
       enrollUser({

@@ -47,8 +47,6 @@ const DashboardAccordionItem = ({ section }: { section: SectionType }) => {
   ) => {
     setIsComplete(true);
 
-    console.log(user)
-
     try {
       if (evt.target.checked) {
         await $axios.put(`${getLessonUrl("complete")}/${lessonID}`);
@@ -112,9 +110,7 @@ const DashboardAccordionItem = ({ section }: { section: SectionType }) => {
                     defaultChecked={lesson.completed.includes(
                       user.id as string
                     )}
-                    cursor={
-                    	isComplete ? 'progress' : 'pointer'
-                    }
+                    cursor={isComplete ? "progress" : "pointer"}
                   />
                 ) : null}
               </Flex>

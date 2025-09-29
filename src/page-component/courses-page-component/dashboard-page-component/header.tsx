@@ -3,7 +3,6 @@ import {
   Button,
   Divider,
   Flex,
-  HStack,
   IconButton,
   Modal,
   ModalBody,
@@ -75,7 +74,9 @@ const Header = () => {
           position: "top-right",
           isClosable: true,
         });
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       setIsLoading(true);
 
@@ -118,9 +119,10 @@ const Header = () => {
           rating: existReview.rating,
           summary: existReview.summary,
         });
-        console.log(reviewVal);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

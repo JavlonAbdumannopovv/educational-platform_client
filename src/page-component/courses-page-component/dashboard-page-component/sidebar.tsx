@@ -14,7 +14,7 @@ import { DashboardAccordionItem } from "src/components";
 import { useActions } from "src/hooks/useActions";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 
-const Sidebar = ({...props}) => {
+const Sidebar = ({ ...props }) => {
   const [moduleIndex, setModuleIndex] = useState<number>(0);
   const { sections, pendingSection } = useTypedSelector(
     (state) => state.section
@@ -23,22 +23,27 @@ const Sidebar = ({...props}) => {
   const { getSection } = useActions();
 
   useEffect(() => {
-    getSection({ courseId: course?._id, callback: () => {} });
+    getSection({
+      courseId: course?._id,
+      callback: () => {
+        console.log(sections);
+      },
+    });
   }, [course]);
 
-	useEffect(() => {
-		const lessonId = localStorage.getItem(course?._id as string);
+  useEffect(() => {
+    const lessonId = localStorage.getItem(course?._id as string);
 
-		const currentModuleId = sections.find(item =>
-			item.lessons.map(c => c._id).includes(lessonId as string)
-		)?._id;
+    const currentModuleId = sections.find((item) =>
+      item.lessons.map((c) => c._id).includes(lessonId as string)
+    )?._id;
 
-		const findIndex = sections
-			.map(c => c._id)
-			.indexOf(currentModuleId as string);
+    const findIndex = sections
+      .map((c) => c._id)
+      .indexOf(currentModuleId as string);
 
-		setModuleIndex(findIndex === -1 ? 0 : findIndex);
-	}, [sections]);
+    setModuleIndex(findIndex === -1 ? 0 : findIndex);
+  }, [sections]);
 
   return (
     <Box
@@ -82,7 +87,7 @@ const Sidebar = ({...props}) => {
             ta Darslik
           </Flex>
 
-          <Accordion mb={5} mr={2} allowToggle index={moduleIndex }>
+          <Accordion mb={5} mr={2} allowToggle index={moduleIndex}>
             {sections.map((section) => (
               <DashboardAccordionItem key={section._id} section={section} />
             ))}

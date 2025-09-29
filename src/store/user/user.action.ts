@@ -1,9 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { errorCatch } from "src/helpers/api.helper";
 import { AuthService } from "src/services/auth.service";
-import { AuthUserResponse } from "./user.interface";
+import { AuthUserResponse, ChangeUserPasswordDto } from "./user.interface";
 import { UserService } from "src/services/user.service";
-import { UserChangePasswordDto } from "../../../../server/src/user/user.interface";
 
 export const register = createAsyncThunk<
   AuthUserResponse,
@@ -75,7 +74,7 @@ export const editProfilePassword = createAsyncThunk<
 
 export const changeUserPassword = createAsyncThunk<
   "Success",
-  UserChangePasswordDto
+  ChangeUserPasswordDto
 >("auth/change-user-password", async (body, thunkApi) => {
   try {
     const response = await UserService.changePassword(body);

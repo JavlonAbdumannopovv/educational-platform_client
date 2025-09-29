@@ -41,7 +41,9 @@ const CurriculumPageComponent = () => {
 	useEffect(() => {
 		getSection({
 			courseId: course?._id,
-			callback: () => {},
+			callback: () => {
+        console.log(course);
+      },
 		});
 	}, [course]);
 

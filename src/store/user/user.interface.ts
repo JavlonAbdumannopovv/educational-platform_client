@@ -34,4 +34,5 @@ export interface InterfaceSign {
 export interface ChangeUserPasswordDto {
   oldPassword: string;
   newPassword: string;
+  callback: () => void;
 }

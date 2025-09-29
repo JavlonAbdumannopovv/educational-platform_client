@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { AiOutlineClockCircle } from "react-icons/ai";
-import { BsMinecartLoaded } from "react-icons/bs";
 import { CiViewList } from "react-icons/ci";
 import { SiGoogleanalytics } from "react-icons/si";
 import ReactStars from "react-stars";

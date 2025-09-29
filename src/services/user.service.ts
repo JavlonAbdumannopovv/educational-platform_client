@@ -1,6 +1,6 @@
-import { UserChangePasswordDto } from "./../../../server/src/user/user.interface";
 import $axios from "src/api/axios";
 import { getUserUrl } from "src/config/api.config";
+import { ChangeUserPasswordDto } from "src/store/user/user.interface";
 export const UserService = {
   async updateUser(body) {
     try {
@@ -22,7 +22,7 @@ export const UserService = {
     }
   },
 
-  async changePassword({ oldPassword, newPassword }: UserChangePasswordDto) {
+  async changePassword({ oldPassword, newPassword }: ChangeUserPasswordDto) {
     const response = await $axios.put(`${getUserUrl("change-password")}`, {
       oldPassword,
       newPassword,

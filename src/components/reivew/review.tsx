@@ -47,7 +47,7 @@ const Review = ({ reviews }) => {
           <Skeleton height="30px" />
         </Stack>
       ) : (
-        reviews.map((item, idx) => (
+        reviews.map((item) => (
           <Flex key={item._id} gap={4} mt={6} borderBottomWidth={"1px"} pb={2}>
             <Avatar
               bg={useColorModeValue("gray.200", "gray.600")}
@@ -87,32 +87,3 @@ const Review = ({ reviews }) => {
 };
 
 export default Review;
-
-const data = [
-  {
-    name: "Aziz Rohimov",
-    rating: "5",
-    summary: "raxmat",
-  },
-  {
-    name: "Axmadjon Mustafayev",
-    rating: "5",
-    summary: "kurs ajoyib raxmat",
-  },
-
-  {
-    name: "Nurillo Mahmudjonov ",
-    rating: "5",
-    summary: "aka katta raxmat ancha narsa o'rgandim kurdan",
-  },
-  {
-    name: "Aziz faxriddin o'g'li",
-    rating: "5",
-    summary: "raxmat",
-  },
-  {
-    name: "Samar Badriddinov",
-    rating: "5",
-    summary: "cool",
-  },
-];

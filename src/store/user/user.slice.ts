@@ -118,7 +118,7 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.error = null;
       })
-      .addCase(changeUserPassword.rejected, (state, { payload }) => {
+      .addCase(changeUserPassword.rejected, (state) => {
         state.isLoading = false;
         state.error = "incorrect_password";
       });
