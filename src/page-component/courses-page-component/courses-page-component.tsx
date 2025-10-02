@@ -45,7 +45,7 @@ const CoursesPageComponent = () => {
 
   const { t } = useTranslation();
   const { courses } = useTypedSelector((state) => state.course);
-
+  
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
     setAllCourses(
@@ -55,7 +55,7 @@ const CoursesPageComponent = () => {
       )
     );
   };
-
+  
   useEffect(() => {
     setAllCourses(courses);
 

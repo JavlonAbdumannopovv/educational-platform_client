@@ -19,7 +19,7 @@ const Footer = () => {
 		>
 			<Flex justify={'space-between'} align={'center'} h={'full'}>
 				<Text>
-					© {format(new Date(), 'yyyy')} Sammi. {t('footer', { ns: 'layout' })}
+					© {format(new Date(), 'yyyy')} Digital Uzbekistan. {t('footer', { ns: 'layout' })}
 				</Text>
 				<Flex gap={3} mr={10}>
 					<IconButton icon={<FaTelegram />} colorScheme={'facebook'} variant={'outline'} aria-label={'telegram'} />

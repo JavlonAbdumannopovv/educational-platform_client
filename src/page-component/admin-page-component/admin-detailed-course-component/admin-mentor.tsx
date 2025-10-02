@@ -12,7 +12,7 @@ import { BsPlayCircle } from "react-icons/bs";
 import { FaStar, FaUserGraduate } from "react-icons/fa";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 
-const Mentor = () => {
+const AdminMentor = () => {
   const { course } = useTypedSelector((state) => state.course);
   const { t } = useTranslation();
 
@@ -56,19 +56,17 @@ const Mentor = () => {
         <Box as={"span"} fontWeight={"bold"} color={"facebook.500"}>
           {course?.author.fullName}
         </Box>{" "}
-        - 'Digital Uzbekistan' platformasi asoschisi hamda Amerika, Tunisia va Rossiya
-        do'vlatrida bir nachta StartUp loyihalarda ishtrok etgan. Xozirgi kunda
-        Amerikadagi sug'urta kompaniyasida ishlaydi.
+        - 'Digital Uzbekistan' platformasi asoschisi.
       </Text>
       <Text mt={4}>
         <Box as={"span"} fontWeight={"bold"} color={"facebook.500"}>
           Stack
         </Box>{" "}
         - O'z tajribam davomida men bir nechta stack lardan foydalanganman, MERN
-        (TypeScript, NextJS), Angular, VueJS, AWS, React Native. Ushbu
-        platformaning asosiy maqsadi o'z bilimlarimni bo'lishish.
+        (TypeScript, NextJS), React, Javascript. Ushbu platformaning asosiy
+        maqsadi o'z bilimlarimni bo'lishish.
       </Text>
     </>
   );
 };
-export default Mentor;
+export default AdminMentor;

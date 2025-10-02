@@ -11,9 +11,9 @@ const Books = () => {
 
 	return (
 		<Seo
-			metaTitle={`Sammi | ${t('books_page_title', { ns: 'seo' })}` || 'Sammi | Books'}
+			metaTitle={`DigitalUz | ${t('books_page_title', { ns: 'seo' })}` || 'DigitalUz | Books'}
 			metaDescription={
-				`Sammi | ${t('books_page_description', { ns: 'seo' })}` || 'Sammi can advice books for you'
+				`DigitalUz | ${t('books_page_description', { ns: 'seo' })}` || 'DigitalUz can advice books for you'
 			}
 		>
 			<BooksPageComponent />

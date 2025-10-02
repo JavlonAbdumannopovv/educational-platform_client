@@ -4,7 +4,7 @@ import { UserDashboardPageComponent } from "src/page-component";
 
 const Dashboard = () => {
   return (
-    <Seo metaTitle="Sammi | Dashboard">
+    <Seo metaTitle="DigitalUz | Dashboard">
       <UserDashboardPageComponent />
     </Seo>
   );

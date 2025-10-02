@@ -1,33 +1,33 @@
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { CourseType } from "src/interfaces/course.interface";
-import { withLayout } from "src/layouts/layout";
+import { withAdminLayout } from "src/layouts/admin";
 import Seo from "src/layouts/seo/seo";
-import { DetailedCourseComponent } from "src/page-component";
+import { AdminDetailedCourseComponent } from "src/page-component";
 import { AppService } from "src/services/app.service";
 
-const DetailedCoursePage = () => {
+const AdminDetailedCoursePage = () => {
   const router = useRouter();
 
   return (
     <Seo metaTitle={`DigitalUz | ${router.query.slug} dashboard`}>
-      <DetailedCourseComponent />
+      <AdminDetailedCourseComponent />
+      {/* hello {router.query.slug} */}
     </Seo>
   );
 };
 
-export default withLayout(DetailedCoursePage);
+export default withAdminLayout(AdminDetailedCoursePage);
 
-export const getServerSideProps: GetServerSideProps<MainPageProps> = async ({
-  query,
-}) => {
+export const getServerSideProps: GetServerSideProps<
+  AdminDetailedPageProps
+> = async ({ query }) => {
   const course = await AppService.getDetailedCourse(query.slug as string);
-
   return {
     props: { course },
   };
 };
 
-interface MainPageProps {
+interface AdminDetailedPageProps {
   course: CourseType;
 }

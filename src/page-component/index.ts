@@ -22,3 +22,4 @@ export { default as InstructorStudentsPageComponent } from "./instructor-page-co
 export { default as PricingPageComponent } from "./pricing-page-component/pricing-page-component";
 export { default as DashboardPageComponent } from "./courses-page-component/dashboard-page-component/dashboard-page-component";
 export { default as UserDashboardPageComponent } from "./user-dashboard-page-component/user-dashboard-page-component";
+export { default as AdminDetailedCourseComponent } from "./admin-page-component/admin-detailed-course-component/admin-detailed-course-component";

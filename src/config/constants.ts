@@ -17,7 +17,6 @@ import {
 import { FiEdit } from 'react-icons/fi';
 import { ImBooks } from 'react-icons/im';
 import { MdOutlineContactMail, MdOutlineCreateNewFolder } from 'react-icons/md';
-import { RiMoneyDollarBoxLine } from 'react-icons/ri';
 import { SiAmd, SiCisco, SiLogitech, SiSpotify } from 'react-icons/si';
 import {
 	AnnouncementIcons,
@@ -361,7 +360,7 @@ export const courseusers = [
 	{
 		id: 1,
 		email: 'ab@gmail.com',
-		fullName: 'Samar Badriddinov',
+		fullName: 'Javlon Abdumannopov',
 		year: 2024,
 		userGain: 100,
 	},
@@ -399,7 +398,7 @@ export const instructorUsers = [
 	{
 		id: 1,
 		email: 'ab@gmail.com',
-		fullName: 'Samar Badriddinov',
+		fullName: 'Javlon Abdumannopov',
 		job: 'Software Engineer',
 		socialMedia: 'https://youtube.com',
 	},

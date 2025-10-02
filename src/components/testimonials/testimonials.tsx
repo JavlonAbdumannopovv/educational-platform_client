@@ -37,7 +37,7 @@ export default Testimonials;
 
 const data = [
 	{
-		name: 'Samar Badriddinov',
+		name: 'Javlon Abdumannopov',
 		description:
 			'It is no exaggeration to say this Educrat experience was transformative–both professionally and personally. This workshop will long remain a high point of my life.',
 	},

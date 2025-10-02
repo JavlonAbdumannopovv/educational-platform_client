@@ -194,7 +194,7 @@ const BecomeInstructorPageComponent = () => {
 									<TextFiled
 										name={'email'}
 										label={t('login_input_email_label', { ns: 'global' })}
-										placeholder={'info@sammi.ac'}
+										placeholder={'info@example.com'}
 										type={'email'}
 									/>
 									<TextFiled

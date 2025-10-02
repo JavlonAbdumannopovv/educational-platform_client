@@ -1,5 +1,4 @@
 import { GetServerSideProps } from "next";
-import { withInstructorLayout } from "src/layouts/instructor";
 import { withAdminLayout } from "src/layouts/admin";
 
 const AdminPage = () => {

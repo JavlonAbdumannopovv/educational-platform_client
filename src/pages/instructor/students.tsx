@@ -1,12 +1,23 @@
 import { GetServerSideProps, NextPage } from "next";
+import { useTranslation } from "react-i18next";
 import { StudentType } from "src/interfaces/instructor.interface";
 import { withInstructorLayout } from "src/layouts/instructor";
+import Seo from "src/layouts/seo/seo";
 import { InstructorStudentsPageComponent } from "src/page-component";
 import { AuthService } from "src/services/auth.service";
 import { InstructorService } from "src/services/instructor.service";
 
 const Students: NextPage = () => {
-  return <InstructorStudentsPageComponent />;
+  const { t } = useTranslation();
+
+  return (
+    <Seo
+      metaTitle={`DigitalUz | ${t("instructor_students_title", { ns: "seo" })}`}
+      metaDescription={`${t("instructor_students_description", { ns: "seo" })}`}
+    >
+      <InstructorStudentsPageComponent />
+    </Seo>
+  );
 };
 
 export default withInstructorLayout(Students);

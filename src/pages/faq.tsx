@@ -9,11 +9,11 @@ const FaqPage = () => {
 	return (
 		<Seo
 			metaTitle={
-				`Sammi | ${t('faq_page_title', { ns: 'seo' })}` || 'Sammi | FAQ'
+				`DigitalUz | ${t('faq_page_title', { ns: 'seo' })}` || 'DigitalUz | FAQ'
 			}
 			metaDescription={
-				`Sammi | ${t('faq_page_description', { ns: 'seo' })}` ||
-				'More users in sammi platform frequently asked question'
+				`DigitalUz | ${t('faq_page_description', { ns: 'seo' })}` ||
+				'More users in Digital Uzbekistan platform frequently asked question'
 			}
 		>
 			<FaqPageComponent />

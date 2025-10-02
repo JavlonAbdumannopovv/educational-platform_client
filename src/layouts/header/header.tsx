@@ -26,7 +26,6 @@ import { TbWorld } from "react-icons/tb";
 import { language } from "src/config/constants";
 import { useActions } from "src/hooks/useActions";
 import { useAuth } from "src/hooks/useAuth";
-import { DarkLogo, LightLogo } from "src/icons";
 import { HeaderProps } from "./header.props";
 import { Logo } from "src/components";
 
@@ -127,6 +126,16 @@ const Header = ({ onToggle }: HeaderProps) => {
                     icon={<RiAdminFill fontSize={17} />}
                   >
                     {t("instructor_admin", { ns: "instructor" })}
+                  </MenuItem>
+                )}
+                {user.role === "ADMIN" && (
+                  <MenuItem
+                    h={14}
+                    onClick={() => router.push("/admin/users")}
+                    fontWeight={"bold"}
+                    icon={<RiAdminFill fontSize={17} />}
+                  >
+                    {t("admin_dashboard", { ns: "admin" })}
                   </MenuItem>
                 )}
                 <MenuItem

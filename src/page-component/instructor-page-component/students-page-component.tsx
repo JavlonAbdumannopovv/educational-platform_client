@@ -33,7 +33,7 @@ const StudentsPageComponent = () => {
   const [searchVal, setSearchVal] = useState("");
   const [allStudents, setAllStudents] = useState<StudentType[]>([]);
   const { students } = useTypedSelector((state) => state.instructor);
-  const [chartData, setChartData] = useState({
+  const [chartData] = useState({
     labels: courseusers.map((data) => data.year),
     datasets: [
       {

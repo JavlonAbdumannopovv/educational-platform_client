@@ -7,10 +7,10 @@ const AuthPage = () => {
 
 	return (
 		<Seo
-			metaTitle={`Sammi | ${t('auth_page_title', { ns: 'seo' })}` || 'Sammi | Auth'}
+			metaTitle={`DigitalUz | ${t('auth_page_title', { ns: 'seo' })}` || 'DigitalUz | Auth'}
 			metaDescription={
-				`Sammi | ${t('auth_page_description', { ns: 'seo' })}` ||
-				'Login or create your account for using sammi platform'
+				`DigitalUz | ${t('auth_page_description', { ns: 'seo' })}` ||
+				'Login or create your account for using Digital Uzbekistan platform'
 			}
 		>
 			<AuthPageComponent />

@@ -9,12 +9,12 @@ const ContactPage = () => {
 	return (
 		<Seo
 			metaTitle={
-				`Sammi | ${t('contact_page_title', { ns: 'seo' })}` ||
-				'Sammi | Contact us'
+				`DigitalUz | ${t('contact_page_title', { ns: 'seo' })}` ||
+				'DigitalUz | Contact us'
 			}
 			metaDescription={
-				`Sammi | ${t('contact_page_description', { ns: 'seo' })}` ||
-				'Contact with Sammi and you can ask any questions'
+				`DigitalUz | ${t('contact_page_description', { ns: 'seo' })}` ||
+				'Contact with DigitalUz and you can ask any questions'
 			}
 		>
 			<ContactPageComponent />

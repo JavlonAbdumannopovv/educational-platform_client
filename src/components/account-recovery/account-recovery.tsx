@@ -72,7 +72,7 @@ const AccountRecovery = ({ onNavigateStateComponent }: AccountRecoveryProps) => 
 						name='email'
 						label={t('login_input_email_label', { ns: 'global' })}
 						type={'text'}
-						placeholder={'info@sammi.ac'}
+						placeholder={'info@example.com'}
 					/>
 					<Button
 						mt={4}

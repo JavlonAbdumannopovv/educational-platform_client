@@ -9,11 +9,11 @@ const AboutPage = () => {
 	return (
 		<Seo
 			metaTitle={
-				`Sammi | ${t('about_page_title', { ns: 'seo' })}` || 'Sammi | About us'
+				`DigitalUzb | ${t('about_page_title', { ns: 'seo' })}` || 'DigitalUzb | About us'
 			}
 			metaDescription={
-				`Sammi | ${t('about_page_description', { ns: 'seo' })}` ||
-				'Main information about sammi platform'
+				`DigitalUzb | ${t('about_page_description', { ns: 'seo' })}` ||
+				'Main information about Digital Uzbekistan platform'
 			}
 		>
 			<AboutPageComponent />
