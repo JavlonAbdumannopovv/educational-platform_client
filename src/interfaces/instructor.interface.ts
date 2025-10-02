@@ -28,3 +28,9 @@ export interface LessonType {
   completed: string[];
   _id: string;
 }
+
+export interface StudentType {
+  email: string;
+  coursesCount: number;
+  createdAt: string;
+}

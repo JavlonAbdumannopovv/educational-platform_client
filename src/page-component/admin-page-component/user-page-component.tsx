@@ -59,7 +59,7 @@ const UserPageComponent = () => {
 
 	return (
 		<>
-			<Card>
+			<Card mt={10}>
 				<CardBody>
 					<Stack>
 						<SectionTitle

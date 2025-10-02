@@ -350,11 +350,11 @@ export const instructorSidebar = [
 		icon: FaFirstdraft,
 		route: 'draft-courses',
 	},
-	{
-		name: 'sidebar_revenue',
-		icon: RiMoneyDollarBoxLine,
-		route: 'revenue',
-	},
+	// {
+	// 	name: 'sidebar_revenue',
+	// 	icon: RiMoneyDollarBoxLine,
+	// 	route: 'revenue',
+	// },
 ];
 
 export const courseusers = [
@@ -362,33 +362,33 @@ export const courseusers = [
 		id: 1,
 		email: 'ab@gmail.com',
 		fullName: 'Samar Badriddinov',
-		year: 2022,
+		year: 2024,
 		userGain: 100,
 	},
 	{
 		id: 2,
 		email: 'ab@gmail.com',
 		fullName: 'Osman Ali',
-		year: 2022,
+		year: 2024,
 		userGain: 450,
 	},
 	{
 		id: 3,
-		year: 2023,
+		year: 2025,
 		fullName: 'Shox Abdulloh',
 		email: 'ab@gmail.com',
 		userGain: 550,
 	},
 	{
 		id: 4,
-		year: 2023,
+		year: 2025,
 		fullName: 'Abdulaziz Alimov',
 		email: 'ab@gmail.com',
 		userGain: 1000,
 	},
 	{
 		id: 5,
-		year: 2023,
+		year: 2025,
 		fullName: 'Yusuf Khamdamov',
 		email: 'ab@gmail.com',
 		userGain: 1500,

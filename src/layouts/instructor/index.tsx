@@ -32,7 +32,7 @@ export const withInstructorLayout = <T extends Record<string, unknown> & Instruc
 	return function withLayoutComponent(props: T): JSX.Element {
 		return (
 			<Layout>
-				<InstructorProvider course={props.course} courses={props.courses}>
+				<InstructorProvider course={props.course} courses={props.courses} students={props.students}>
 					<Component {...props} />
 				</InstructorProvider>
 			</Layout>
