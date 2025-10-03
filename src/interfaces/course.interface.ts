@@ -25,6 +25,7 @@ export interface AuthorType {
   fullName: string;
   avatar: string;
   job: string;
+  students: string[];
 }
 
 export interface ReviewType {

@@ -28,10 +28,10 @@ import { FaRegCommentDots, FaTelegram } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import ReactStars from "react-stars";
+import { Logo } from "src/components";
 import TextAreaField from "src/components/text-area-field/text-area-field";
 import TextFiled from "src/components/text-filed/text-filed";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
-import { DarkLogo, LightLogo } from "src/icons";
 import { ReviewService } from "src/services/review.service";
 
 <Divider />;
@@ -149,14 +149,12 @@ const Header = () => {
         justify={"space-between"}
       >
         <Stack gap={{ base: 0, md: 2 }} direction={"row"}>
-          <Link href="/">
-            {colorMode === "light" ? <DarkLogo /> : <LightLogo />}
-          </Link>
+          <Link href={"/"}>{colorMode === "light" ? <Logo /> : <Logo />}</Link>
         </Stack>
 
         <Stack direction={"row"} align={"center"}>
           <IconButton
-            colorScheme={"green"}
+            colorScheme={"facebook"}
             variant={"ghost"}
             onClick={toggleColorMode}
             icon={colorMode == "light" ? <BsFillMoonStarsFill /> : <FiSun />}
@@ -175,11 +173,13 @@ const Header = () => {
             icon={<FaRegCommentDots />}
             aria-label={"comments"}
             variant={"outline"}
-            colorScheme={"green"}
+            colorScheme={"facebook"}
             display={{ base: "none", md: "flex" }}
           />
           <IconButton
-            onClick={() => router.push(`/course/${course?.slug}`)}
+            onClick={() => {
+              router.push(`/`);
+            }}
             icon={<RiLogoutBoxLine />}
             aria-label={"comments"}
             variant={"outline"}
@@ -217,9 +217,10 @@ const Header = () => {
                     </Flex>
                     <Box mt={2}>
                       <Text>
-                        Baholang
-                        {" "}
-                        <Box as="span" color={"red.300"}>*</Box>
+                        Baholang{" "}
+                        <Box as="span" color={"red.300"}>
+                          *
+                        </Box>
                       </Text>
                       <ReactStars
                         edit={true}

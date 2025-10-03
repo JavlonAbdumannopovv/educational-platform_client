@@ -6,10 +6,12 @@ import {
   Heading,
   Icon,
   Spinner,
+  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { GoPrimitiveDot } from "react-icons/go";
+import { useTranslation } from "react-i18next";
+import { CiBoxList, CiVideoOn } from "react-icons/ci";
 import { DashboardAccordionItem } from "src/components";
 import { useActions } from "src/hooks/useActions";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
@@ -21,6 +23,7 @@ const Sidebar = ({ ...props }) => {
   );
   const { course } = useTypedSelector((state) => state.course);
   const { getSection } = useActions();
+  const { t } = useTranslation();
 
   useEffect(() => {
     getSection({
@@ -81,13 +84,24 @@ const Sidebar = ({ ...props }) => {
       ) : (
         <>
           <Heading fontSize={"2xl"}>Kurs bo'limlari</Heading>
-          <Flex align={"center"} gap={2} mt={3}>
-            {sections.length}ta Bo'lim <Icon as={GoPrimitiveDot} />{" "}
-            {sections.map((c) => c.lessons.length).reduce((a, b) => +a + +b, 0)}
-            ta Darslik
+          <Flex align={"center"} gap={10} mt={3}>
+            <Flex alignItems={"center"} direction={"row"} gap={1}>
+              <Icon as={CiBoxList} w={5} h={5} />
+              <Text fontSize={17}>{t("modules", { ns: "courses" })}:</Text>
+              <Text fontSize={17}>{sections.length}</Text>
+            </Flex>
+            <Flex alignItems={"center"} direction={"row"} gap={2}>
+              <Icon as={CiVideoOn} w={5} h={5} />
+              <Text fontSize={17}>{t("lessons", { ns: "courses" })}:</Text>
+              <Text fontSize={17}>
+                {sections
+                  .map((c) => c.lessons.length)
+                  .reduce((a, b) => +a + +b, 0)}
+              </Text>
+            </Flex>
           </Flex>
 
-          <Accordion mb={5} mr={2} allowToggle index={moduleIndex}>
+          <Accordion mb={5} mr={2} defaultIndex={moduleIndex} allowToggle>
             {sections.map((section) => (
               <DashboardAccordionItem key={section._id} section={section} />
             ))}

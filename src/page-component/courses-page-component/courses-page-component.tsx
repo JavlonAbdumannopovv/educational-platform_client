@@ -1,21 +1,15 @@
 import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
   Box,
+  Divider,
   Flex,
+  FormControl,
+  Grid,
   Input,
-  Radio,
-  RadioGroup,
+  Select,
   Spinner,
-  Stack,
-  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import ReactStars from "react-stars";
 import { AllCoursesCard } from "src/components";
 import SectionTitle from "src/components/section-title/section-title";
 import { coursesFilter } from "src/config/constants";
@@ -34,6 +28,8 @@ import {
 } from "react";
 import { AppService } from "src/services/app.service";
 
+<Divider />;
+
 const CoursesPageComponent = () => {
   const [filter, setFilter] = useState<FilterCourseType>({
     id: "",
@@ -45,7 +41,7 @@ const CoursesPageComponent = () => {
 
   const { t } = useTranslation();
   const { courses } = useTypedSelector((state) => state.course);
-  
+
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
     setAllCourses(
@@ -55,7 +51,7 @@ const CoursesPageComponent = () => {
       )
     );
   };
-  
+
   useEffect(() => {
     setAllCourses(courses);
 
@@ -98,34 +94,42 @@ const CoursesPageComponent = () => {
           onChange={searchHandler}
         />
       </Box>
-      <Flex mt={5} gap={5} direction={{ base: "column", lg: "row" }}>
-        <Box
-          w={{ base: "100%", lg: "30%" }}
-          height={"fit-content"}
-          p={5}
-          border={"1px"}
-          borderRadius={"lg"}
+      <Flex mt={5} gap={5} direction={{ base: "column", lg: "column" }}>
+        <Divider mt={5} />
+        <Flex
+          w={"100%"}
+          gap={4}
           borderColor={useColorModeValue("gray.200", "gray.700")}
+          justifyContent={"space-between"}
         >
-          {coursesFilter.map((item, idx) => (
+          {coursesFilter.map((item) => (
             <FilterItem
               item={item}
-              idx={idx}
               key={item.id}
               setFilter={setFilter}
             />
           ))}
-        </Box>
-        <Box w={{ base: "100%", lg: "70%" }}>
+        </Flex>
+        <Box w="100%">
           {isLoading ? (
             <Flex h={"60vh"} justify={"center"} align={"center"}>
               <Spinner />
             </Flex>
           ) : (
             <>
-              {allCourses.map((item) => (
-                <AllCoursesCard key={item.title} course={item} />
-              ))}
+              <Grid
+                mt={5}
+                gridTemplateColumns={{
+                  base: "1fr",
+                  md: "1fr 1fr",
+                  lg: "1fr 1fr 1fr",
+                }}
+                gap={4}
+              >
+                {allCourses.map((item) => (
+                  <AllCoursesCard key={item.title} course={item} />
+                ))}
+              </Grid>
             </>
           )}
         </Box>
@@ -137,54 +141,41 @@ export default CoursesPageComponent;
 
 const FilterItem = ({
   item,
-  idx,
   setFilter,
 }: {
   item: FilterItemProps;
-  idx: number;
   setFilter: Dispatch<SetStateAction<FilterCourseType>>;
 }) => {
   const { t } = useTranslation();
 
+  const handleChange = (category: string, id: string) => {
+    setFilter({ category, id });
+  };
+
   const renderFilterItem = () => (
     <>
-      {item.categoryList.map((c) => (
-        <Radio
-          key={c.id}
-          onChange={() => setFilter({ category: c.id, id: item.id })}
-          value={c.id}
-          colorScheme={"facebook"}
-        >
-          <Flex gap={2}>
-            {item.id === "rating" && (
-              <ReactStars
-                value={Number(c.id)}
-                edit={false}
-                color2={"#e59819"}
-              />
-            )}
+      <Select
+        borderRadius={"8px"}
+        placeholder={`${t(item.title, { ns: "courses" })}`}
+        height={14}
+        focusBorderColor={"facebook.500"}
+      >
+        {item.categoryList.map((c) => (
+          <option
+            key={c.id}
+            value={c.name}
+            onClick={() => handleChange(c.id, item.id)}
+          >
             {t(c.name, { ns: "courses" })}
-          </Flex>
-        </Radio>
-      ))}
+          </option>
+        ))}
+      </Select>
     </>
   );
 
   return (
-    <Accordion key={item.id} allowToggle defaultIndex={idx === 0 ? 0 : idx}>
-      <AccordionItem borderTop={"none"}>
-        <AccordionButton>
-          <Text fontSize={"xl"} flex="1" textAlign="left">
-            {t(item.title, { ns: "courses" })}
-          </Text>
-          <AccordionIcon />
-        </AccordionButton>
-        <AccordionPanel pb={4}>
-          <RadioGroup>
-            <Stack>{renderFilterItem()}</Stack>
-          </RadioGroup>
-        </AccordionPanel>
-      </AccordionItem>
-    </Accordion>
+    <FormControl isRequired mt={15} key={item.id}>
+      {renderFilterItem()}
+    </FormControl>
   );
 };

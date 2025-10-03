@@ -13,6 +13,8 @@ import {
   Tabs,
   TabList,
   Tab,
+  useColorModeValue,
+  Grid,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import {
@@ -83,7 +85,12 @@ const AdminDetailedCourseComponent = () => {
     return (
       <>
         {/* Header content */}
-        <Card>
+        <Card
+          backgroundColor={useColorModeValue("gray.50", "gray.800")}
+          boxShadow={useColorModeValue("lg", "dark-lg")}
+          borderRadius={"lg"}
+          variant={"outline"}
+        >
           <CardBody pos={"relative"} p={{ base: 2, md: 5 }}>
             <Stack direction={{ base: "column", md: "row" }} gap={5}>
               <Box w={{ base: "100%", lg: "60%" }}>
@@ -111,195 +118,196 @@ const AdminDetailedCourseComponent = () => {
                   </Flex>
                 </Stack>
               </Box>
-              <Box
-                w={{ base: "100%", lg: "39%" }}
-                position={{ base: "relative", lg: "absolute" }}
-                right={{ base: 0, lg: 2 }}
-              >
-                <Card variant={"outline"} boxShadow={"dark-lg"}>
-                  <CardBody p={{ base: 2, lg: 5 }}>
-                    <Image
-                      w={"full"}
-                      h={"300px"}
-                      src={loadImage(course?.previewImage)}
-                      alt={course?.title}
-                      style={{ objectFit: "cover", borderRadius: "8px" }}
-                    />
-                    <Stack
-                      mt={5}
-                      direction={"row"}
-                      align={"flex-end"}
-                      justify={"space-between"}
-                    >
-                      <Heading fontSize={"2xl"}>
-                        {course?.price.toLocaleString("en-US", {
-                          currency: "USD",
-                          style: "currency",
-                        })}
-                      </Heading>
-                    </Stack>
-                    <>
-                      {error && (
-                        <ErrorAlert
-                          title={error as string}
-                          clearHandler={clearError}
-                        />
-                      )}
-                    </>
-                    {/* <Button
-                    mt={5}
-                    w={"full"}
-                    h={14}
-                    colorScheme={"facebook"}
-                    onClick={enrollUserHandler}
-                    isLoading={isLoading}
-                    loadingText={`${t("loading", { ns: "global" })}`}
-                  >
-                    {t("enroll", { ns: "courses" })}
-                  </Button> */}
-                    <Box mt={3}>
-                      <Flex
-                        justify={"space-between"}
-                        align={"center"}
-                        py={2}
-                        px={2}
-                        fontSize={"17px"}
-                      >
-                        <Flex align={"center"} gap={3}>
-                          <MdPlayLesson />
-                          <Text fontWeight={"bold"}>
-                            {t("lessons", { ns: "courses" })}
-                          </Text>
-                        </Flex>
-                        <Text>{course?.lessonCount}</Text>
-                      </Flex>
-                      <Divider />
-                      <Flex
-                        justify={"space-between"}
-                        align={"center"}
-                        py={2}
-                        px={2}
-                        fontSize={"17px"}
-                      >
-                        <Flex align={"center"} gap={3}>
-                          <TfiTimer />
-                          <Text fontWeight={"bold"}>
-                            {t("total_hour", { ns: "courses" })}
-                          </Text>
-                        </Flex>
-                        <Text>
-                          {course?.totalHour} {t("hour", { ns: "courses" })}
-                        </Text>
-                      </Flex>
-                      <Divider />
-                      <Flex
-                        justify={"space-between"}
-                        align={"center"}
-                        py={2}
-                        px={2}
-                        fontSize={"17px"}
-                      >
-                        <Flex align={"center"} gap={3}>
-                          <BsBarChart />
-                          <Text fontWeight={"bold"}>
-                            {t("level", { ns: "courses" })}
-                          </Text>
-                        </Flex>
-                        <Text>{course?.level}</Text>
-                      </Flex>
-                      <Divider />
-                      <Flex
-                        justify={"space-between"}
-                        align={"center"}
-                        py={2}
-                        px={2}
-                        fontSize={"17px"}
-                      >
-                        <Flex align={"center"} gap={3}>
-                          <FaLanguage />
-                          <Text fontWeight={"bold"}>
-                            {t("language", { ns: "courses" })}
-                          </Text>
-                        </Flex>
-                        <Text>{course?.language}</Text>
-                      </Flex>
-                      <Divider />
-                      <Flex
-                        justify={"space-between"}
-                        align={"center"}
-                        py={2}
-                        px={2}
-                        fontSize={"17px"}
-                      >
-                        <Flex align={"center"} gap={3}>
-                          <TbCertificate />
-                          <Text fontWeight={"bold"}>
-                            {t("sertificate", { ns: "courses" })}
-                          </Text>
-                        </Flex>
-                        <Text>No</Text>
-                      </Flex>
-                      <Divider />
-                      <Flex
-                        justify={"space-between"}
-                        align={"center"}
-                        py={2}
-                        px={2}
-                        fontSize={"17px"}
-                      >
-                        <Flex align={"center"} gap={3}>
-                          <GiInfinity />
-                          <Text fontWeight={"bold"}>
-                            {t("access", { ns: "courses" })}
-                          </Text>
-                        </Flex>
-                        <Text>Lifetime</Text>
-                      </Flex>
-                      <Divider />
-                    </Box>
-                  </CardBody>
-                </Card>
+              <Box w={{ base: "100%", lg: "39%" }}>
+                <Image
+                  w={"full"}
+                  h={"260px"}
+                  src={loadImage(course?.previewImage)}
+                  alt={course?.title}
+                  style={{ objectFit: "cover", borderRadius: "8px" }}
+                />
               </Box>
             </Stack>
           </CardBody>
         </Card>
 
         {/* Tabs content */}
-        <Tabs
+        <Grid
+          gridTemplateColumns={{ base: "1fr", md: "3fr 2fr" }}
           mt={5}
-          mb={"5vh"}
-          w={{ base: "100%", lg: "60%" }}
-          orientation={"horizontal"}
-          onChange={tabHandler}
-          defaultValue={tabIndex}
-          isFitted
-          colorScheme={"facebook"}
+          justifyContent={"space-between"}
+          gap={5}
         >
-          <TabList>
-            {tablist.map((tab) => (
-              <Tab
-                key={tab.name}
-                fontWeight="bold"
-                textTransform="capitalize"
-                w="100%"
-                justifyContent={"center"}
+          <Card
+            w={"full"}
+            backgroundColor={useColorModeValue("gray.50", "gray.800")}
+            boxShadow={useColorModeValue("lg", "dark-lg")}
+            borderRadius={"lg"}
+            variant={"outline"}
+          >
+            <CardBody>
+              <Tabs
+                mt={5}
+                mb={"5vh"}
+                w={"full"}
+                orientation={"horizontal"}
+                onChange={tabHandler}
+                defaultValue={tabIndex}
+                isFitted
+                colorScheme={"facebook"}
               >
-                <Icon
-                  as={tab.Icon}
-                  mr="2"
-                  display={{ base: "none", md: "block" }}
-                />{" "}
-                {t(tab.name, { ns: "courses" })}
-              </Tab>
-            ))}
-          </TabList>
-          <Box w={"full"}>
-            {tabIndex === 0 && <AdminOverview />}
-            {tabIndex === 1 && <AdminCurriculum />}
-            {tabIndex === 2 && <AdminReview reviews={reviews} />}
-            {tabIndex === 3 && <AdminMentor />}
-          </Box>
-        </Tabs>
+                <TabList>
+                  {tablist.map((tab) => (
+                    <Tab
+                      key={tab.name}
+                      fontWeight="bold"
+                      textTransform="capitalize"
+                      w="100%"
+                      justifyContent={"center"}
+                    >
+                      <Icon
+                        as={tab.Icon}
+                        mr="2"
+                        display={{ base: "none", md: "block" }}
+                      />{" "}
+                      {t(tab.name, { ns: "courses" })}
+                    </Tab>
+                  ))}
+                </TabList>
+                <Box w={"full"}>
+                  {tabIndex === 0 && <AdminOverview />}
+                  {tabIndex === 1 && <AdminCurriculum />}
+                  {tabIndex === 2 && <AdminReview reviews={reviews} />}
+                  {tabIndex === 3 && <AdminMentor />}
+                </Box>
+              </Tabs>
+            </CardBody>
+          </Card>
+          <Card
+            backgroundColor={useColorModeValue("gray.50", "gray.800")}
+            boxShadow={useColorModeValue("lg", "dark-lg")}
+            borderRadius={"lg"}
+            variant={"outline"}
+            w="full"
+            h={"fit-content"}
+          >
+            <CardBody p={{ base: 2, lg: 5 }}>
+              <Stack direction={"column"} gap={5}>
+                <>
+                  {error && (
+                    <ErrorAlert
+                      title={error as string}
+                      clearHandler={clearError}
+                    />
+                  )}
+                </>
+                <Box mt={3}>
+                  <Flex
+                    justify={"space-between"}
+                    align={"center"}
+                    py={2}
+                    px={2}
+                    fontSize={"17px"}
+                  >
+                    <Flex align={"center"} gap={3}>
+                      <MdPlayLesson />
+                      <Text fontWeight={"bold"}>
+                        {t("lessons", { ns: "courses" })}
+                      </Text>
+                    </Flex>
+                    <Text>{course?.lessonCount}</Text>
+                  </Flex>
+                  <Divider />
+                  <Flex
+                    justify={"space-between"}
+                    align={"center"}
+                    py={2}
+                    px={2}
+                    fontSize={"17px"}
+                  >
+                    <Flex align={"center"} gap={3}>
+                      <TfiTimer />
+                      <Text fontWeight={"bold"}>
+                        {t("total_hour", { ns: "courses" })}
+                      </Text>
+                    </Flex>
+                    <Text>
+                      {course?.totalHour} {t("hour", { ns: "courses" })}
+                    </Text>
+                  </Flex>
+                  <Divider />
+                  <Flex
+                    justify={"space-between"}
+                    align={"center"}
+                    py={2}
+                    px={2}
+                    fontSize={"17px"}
+                  >
+                    <Flex align={"center"} gap={3}>
+                      <BsBarChart />
+                      <Text fontWeight={"bold"}>
+                        {t("level", { ns: "courses" })}
+                      </Text>
+                    </Flex>
+                    <Text>{course?.level}</Text>
+                  </Flex>
+                  <Divider />
+                  <Flex
+                    justify={"space-between"}
+                    align={"center"}
+                    py={2}
+                    px={2}
+                    fontSize={"17px"}
+                  >
+                    <Flex align={"center"} gap={3}>
+                      <FaLanguage />
+                      <Text fontWeight={"bold"}>
+                        {t("language", { ns: "courses" })}
+                      </Text>
+                    </Flex>
+                    <Text>{course?.language}</Text>
+                  </Flex>
+                  <Divider />
+                  <Flex
+                    justify={"space-between"}
+                    align={"center"}
+                    py={2}
+                    px={2}
+                    fontSize={"17px"}
+                  >
+                    <Flex align={"center"} gap={3}>
+                      <TbCertificate />
+                      <Text fontWeight={"bold"}>
+                        {t("sertificate", { ns: "courses" })}
+                      </Text>
+                    </Flex>
+                    <Text>No</Text>
+                  </Flex>
+                  <Divider />
+                  <Flex
+                    justify={"space-between"}
+                    align={"center"}
+                    py={2}
+                    px={2}
+                    fontSize={"17px"}
+                  >
+                    <Flex align={"center"} gap={3}>
+                      <GiInfinity />
+                      <Text fontWeight={"bold"}>
+                        {t("access", { ns: "courses" })}
+                      </Text>
+                    </Flex>
+                    <Text>Lifetime</Text>
+                  </Flex>
+                  <Divider />
+                </Box>
+                <Heading fontSize={"2xl"}>
+                  {t("free", { ns: "courses" })}
+                </Heading>
+              </Stack>
+            </CardBody>
+          </Card>
+        </Grid>
       </>
     );
   } else {

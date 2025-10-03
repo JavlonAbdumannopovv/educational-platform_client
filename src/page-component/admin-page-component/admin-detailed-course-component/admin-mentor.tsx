@@ -8,12 +8,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { BsPlayCircle } from "react-icons/bs";
 import { FaStar, FaUserGraduate } from "react-icons/fa";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 
 const AdminMentor = () => {
-  const { course } = useTypedSelector((state) => state.course);
+  const { course } = useTypedSelector((state) => state.admin);
   const { t } = useTranslation();
 
   return (
@@ -39,15 +38,15 @@ const AdminMentor = () => {
           >
             <Flex align={"center"} gap={1}>
               <Icon as={FaStar} color={"facebook.500"} />
-              <Text as={"span"}>4.8 Reyting</Text>
+              <Text as={"span"}>
+                {course.reviewAvg} ({course.reviewCount})
+              </Text>
             </Flex>
             <Flex align={"center"} gap={1}>
               <Icon as={FaUserGraduate} color={"facebook.500"} />
-              <Text as={"span"}>+5,000 O'quvchi</Text>
-            </Flex>
-            <Flex align={"center"} gap={1}>
-              <Icon as={BsPlayCircle} color={"facebook.500"} />
-              <Text as={"span"}>10 Kurslar</Text>
+              <Text as={"span"}>
+                {course?.author.students.length} O'quvchilar
+              </Text>
             </Flex>
           </Stack>
         </Box>
@@ -56,7 +55,7 @@ const AdminMentor = () => {
         <Box as={"span"} fontWeight={"bold"} color={"facebook.500"}>
           {course?.author.fullName}
         </Box>{" "}
-        - 'Digital Uzbekistan' platformasi asoschisi.
+        - 'Digital Uzbekistan' platformasi asoschisi. 
       </Text>
       <Text mt={4}>
         <Box as={"span"} fontWeight={"bold"} color={"facebook.500"}>

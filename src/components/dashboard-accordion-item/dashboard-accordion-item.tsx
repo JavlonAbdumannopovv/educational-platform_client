@@ -66,7 +66,9 @@ const DashboardAccordionItem = ({ section }: { section: SectionType }) => {
         height={"60px"}
         background={useColorModeValue("gray.100", "gray.700")}
         borderRadius={"md"}
-        _hover={{}}
+        _hover={{
+          backgroundColor: useColorModeValue("gray.200", "gray.600"),
+        }}
         fontWeight={"bold"}
         // onClick={() => onModule(id)}
       >

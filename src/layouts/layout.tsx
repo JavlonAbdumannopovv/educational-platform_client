@@ -16,7 +16,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
 			<Header onToggle={onToggle} />
 			<Sidebar toggle={toggle} />
 			<Box mt={'11vh'} pl={{ base: 0, lg: '320px' }} minH={'90vh'} transition={'all .4s ease'}>
-				<Container maxW={'container.lg'}>{children}</Container>
+				<Container maxW={'container.xl'}>{children}</Container>
 			</Box>
 			<Footer />
 		</Box>

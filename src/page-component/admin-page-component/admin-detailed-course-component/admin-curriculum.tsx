@@ -14,8 +14,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { AiFillPlayCircle } from "react-icons/ai";
-import { GoPrimitiveDot } from "react-icons/go";
+import { CiBoxList, CiVideoOn } from "react-icons/ci";
 import { getLessonTime } from "src/helpers/time.helper";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 
@@ -39,39 +38,50 @@ const AdminCurriculum = () => {
         </Stack>
       ) : (
         <>
-          <Flex align={"center"} gap={2} mt={3}>
-            {sections.length} {t("modules", { ns: "courses" })}{" "}
-            <Icon as={GoPrimitiveDot} />{" "}
-            {sections.map((c) => c.lessons.length).reduce((a, b) => +a + +b, 0)}{" "}
-            {t("lessons", { ns: "courses" })}
+          <Flex align={"center"} gap={10} mt={3}>
+            <Flex alignItems={"center"} direction={"row"} gap={1}>
+              <Icon as={CiBoxList} w={7} h={7} />
+              <Text fontSize={20}>{t("modules", { ns: "courses" })}:</Text>
+              <Text fontSize={20}>{sections.length}</Text>
+            </Flex>
+            <Flex alignItems={"center"} direction={"row"} gap={2}>
+              <Icon as={CiVideoOn} w={7} h={7} />
+              <Text fontSize={18}>{t("lessons", { ns: "courses" })}:</Text>
+              <Text fontSize={18}>
+                {sections
+                  .map((c) => c.lessons.length)
+                  .reduce((a, b) => +a + +b, 0)}
+              </Text>
+            </Flex>
           </Flex>
-          <Accordion defaultIndex={[0]} allowToggle mr={2}>
+          <Accordion defaultIndex={[0]} allowToggle mr={2} mt={5}>
             {sections.map((m) => (
               <AccordionItem
                 key={m.title}
                 border={"1px solid facebook.500"}
                 borderRadius={"8px"}
-                mt={5}
+                mb={1}
               >
                 <AccordionButton
                   height={"60px"}
-                  background={useColorModeValue("facebook.500", "facebook.200")}
-                  color={useColorModeValue("white", "black")}
+                  background={useColorModeValue("gray.100", "gray.700")}
+                  color={useColorModeValue("black", "white")}
                   borderRadius={"lg"}
                   _hover={{
-                    backgroundColor: "facebook.400",
+                    backgroundColor: useColorModeValue("gray.200", "gray.700"),
                   }}
                   fontWeight={"bold"}
+                  fontSize={18}
                 >
                   <Box flex="1" textAlign="left">
                     <AccordionIcon />
                     {m.title}
                   </Box>
                   <Flex flex={0}>
-                    <Text fontSize={"sm"}>{m.lessons.length}ta&nbsp;Dars</Text>
+                    <Text fontSize={"sm"}>{m.lessons.length}&nbsp;dars</Text>
                   </Flex>
                 </AccordionButton>
-                <AccordionPanel pb={4}>
+                <AccordionPanel pb={4} borderLeft={"1px"} px={5}>
                   {m.lessons.map((lesson) => (
                     <Flex
                       key={lesson.name}
@@ -80,12 +90,7 @@ const AdminCurriculum = () => {
                       py={2}
                     >
                       <Flex align={"center"} gap={2} w={"80%"}>
-                        <Icon
-                          as={AiFillPlayCircle}
-                          color={"gray.600"}
-                          w={7}
-                          h={7}
-                        />
+                        <Icon as={CiVideoOn} color={"gray.600"} w={5} h={5} />
                         <Text>{lesson.name}</Text>
                       </Flex>
                       <Text fontSize={"sm"}>

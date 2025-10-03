@@ -8,13 +8,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { BsPlayCircle } from "react-icons/bs";
 import { FaStar, FaUserGraduate } from "react-icons/fa";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 
 const Mentor = () => {
   const { course } = useTypedSelector((state) => state.course);
   const { t } = useTranslation();
+
+  console.log(course);
 
   return (
     <>
@@ -39,15 +40,13 @@ const Mentor = () => {
           >
             <Flex align={"center"} gap={1}>
               <Icon as={FaStar} color={"facebook.500"} />
-              <Text as={"span"}>4.8 Reyting</Text>
+              <Text as={"span"}>
+                {course?.reviewAvg} ({course?.reviewCount})
+              </Text>
             </Flex>
             <Flex align={"center"} gap={1}>
               <Icon as={FaUserGraduate} color={"facebook.500"} />
-              <Text as={"span"}>+5,000 O'quvchi</Text>
-            </Flex>
-            <Flex align={"center"} gap={1}>
-              <Icon as={BsPlayCircle} color={"facebook.500"} />
-              <Text as={"span"}>10 Kurslar</Text>
+              <Text as={"span"}>{course?.author.students.length} O'quvchi</Text>
             </Flex>
           </Stack>
         </Box>
@@ -56,17 +55,15 @@ const Mentor = () => {
         <Box as={"span"} fontWeight={"bold"} color={"facebook.500"}>
           {course?.author.fullName}
         </Box>{" "}
-        - 'Digital Uzbekistan' platformasi asoschisi hamda Amerika, Tunisia va Rossiya
-        do'vlatrida bir nachta StartUp loyihalarda ishtrok etgan. Xozirgi kunda
-        Amerikadagi sug'urta kompaniyasida ishlaydi.
+        - 'Digital Uzbekistan' platformasi asoschisi.
       </Text>
       <Text mt={4}>
         <Box as={"span"} fontWeight={"bold"} color={"facebook.500"}>
           Stack
         </Box>{" "}
         - O'z tajribam davomida men bir nechta stack lardan foydalanganman, MERN
-        (TypeScript, NextJS), Angular, VueJS, AWS, React Native. Ushbu
-        platformaning asosiy maqsadi o'z bilimlarimni bo'lishish.
+        (TypeScript, NextJS), Javascript, React, Ushbu platformaning asosiy
+        maqsadi o'z bilimlarimni bo'lishish.
       </Text>
     </>
   );

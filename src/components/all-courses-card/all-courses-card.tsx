@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Button,
+  Card,
   Divider,
   Flex,
   Heading,
@@ -9,6 +10,7 @@ import {
   Icon,
   Stack,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { AiOutlineClockCircle } from "react-icons/ai";
@@ -19,6 +21,8 @@ import { AllCoursesCardProps } from "./all-courses-card.props";
 import { loadImage } from "src/helpers/image.helper";
 import Image from "next/image";
 
+<Divider />;
+
 const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
   const router = useRouter();
 
@@ -26,11 +30,15 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
 
   return (
     <>
-      <Box py={4}>
-        <Flex gap={4} direction={{ base: "column", md: "row" }}>
+      <Card
+        backgroundColor={useColorModeValue("gray.100", "gray.800")}
+        boxShadow={useColorModeValue("lg", "dark-lg")}
+        borderRadius={"lg"}
+      >
+        <Stack>
           <Box
             position={"relative"}
-            width={{ base: "full", md: "30%" }}
+            width={"full"}
             h={"250px"}
             onClick={onDetailedCourse}
             cursor={"pointer"}
@@ -39,11 +47,12 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
               src={loadImage(course.previewImage)}
               alt={course.title}
               fill
-              style={{ objectFit: "cover", borderRadius: "10px" }}
+              style={{ objectFit: "cover", borderRadius: "10px 10px 0 0" }}
             />
           </Box>
 
-          <Stack w={"70%"}>
+          <Stack p={4}>
+            <Heading fontSize={"2xl"}>{course.title}</Heading>
             <HStack>
               <Text color={"#e59819"}>{course.reviewAvg || 0}</Text>
               <ReactStars
@@ -53,21 +62,17 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
               />
               <Text opacity={".8"}>({course.reviewCount || 0})</Text>
             </HStack>
-            <Heading fontSize={"xl"}>{course.title}</Heading>
             <Text>
-              {course.exerpt.length >= 200
-                ? course.exerpt.slice(0, 200)
-                : course.exerpt} ...
+              {course.exerpt.length >= 100
+                ? course.exerpt.slice(0, 100)
+                : course.exerpt}{" "}
+              ...
             </Text>
             <Flex
               gap={2}
               fontSize={"14px"}
               direction={{ base: "column", sm: "row" }}
             >
-              <Avatar
-                src={loadImage(course.author.avatar)}
-                name={course.author.fullName}
-              />
               <HStack>
                 <Flex align={"center"} gap={1}>
                   <Icon as={CiViewList} />
@@ -89,32 +94,23 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
               justify={"space-between"}
               direction={{ base: "column", md: "row" }}
             >
-              <Text fontSize={"xl"} fontWeight={"bold"}>
-                {course.price.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </Text>
+              <Avatar
+                src={loadImage(course.author.avatar)}
+                name={course.author.fullName}
+              />
               <Flex gap={4} mt={{ base: 5, md: 0 }}>
-                {/* <Button
-                  rightIcon={<BsMinecartLoaded />}
-                  colorScheme={"facebook"}
-                >
-                  Add to cart
-                </Button> */}
                 <Button
                   onClick={onDetailedCourse}
                   colorScheme={"facebook"}
-                  variant={"outline"}
+                  // variant={"outline"}
                 >
                   Detail
                 </Button>
               </Flex>
             </Flex>
           </Stack>
-        </Flex>
-      </Box>
-      <Divider />
+        </Stack>
+      </Card>
     </>
   );
 };
