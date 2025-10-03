@@ -1,18 +1,9 @@
-import {
-  Box,
-  Card,
-  CardBody,
-  Divider,
-  Flex,
-  Grid,
-  HStack,
-} from "@chakra-ui/react";
+import { Divider, Grid } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { AdminCourseCard, ErrorAlert } from "src/components";
-import SectionTitle from "src/components/section-title/section-title";
+import { AdminCourseCard, ChartData, ErrorAlert } from "src/components";
+import { courseusers } from "src/config/constants";
 import { useActions } from "src/hooks/useActions";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
-import { LaunchCourseIcon } from "src/icons";
 
 <Divider />;
 
@@ -24,21 +15,11 @@ const CoursesPageComponent = () => {
 
   return (
     <>
-      <Card mt={10}>
-        <CardBody>
-          <HStack>
-            <Box w={"30%"}>
-              <SectionTitle
-                title={t("courses_section_title", { ns: "admin" })}
-                subtitle={t("courses_section_descr", { ns: "admin" })}
-              />
-            </Box>
-            <Flex w={"70%"} justify={"flex-end"}>
-              <LaunchCourseIcon />
-            </Flex>
-          </HStack>
-        </CardBody>
-      </Card>
+      <ChartData
+        dataArr={courseusers}
+        title={t("courses_section_title", { ns: "admin" })}
+        subtitle={t("courses_section_descr", { ns: "admin" })}
+      />
       <>
         {error && (
           <ErrorAlert title={error as string} clearHandler={clearAdminError} />

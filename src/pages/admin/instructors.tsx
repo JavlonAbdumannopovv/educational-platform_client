@@ -23,7 +23,7 @@ export default withAdminLayout(Instructor);
 export const getServerSideProps: GetServerSideProps<
   InstructorPageType
 > = async ({ req }) => {
-  const instructors = await AdminService.getAllInstructors(req.cookies.refresh);
+  const instructors = await AdminService.getAllInstructors(req.cookies.refresh, );
 
   return {
     props: { instructors },

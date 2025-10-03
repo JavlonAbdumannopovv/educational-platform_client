@@ -5,6 +5,7 @@ import {
   Center,
   Flex,
   Heading,
+  HStack,
   Skeleton,
   Stack,
   Text,
@@ -35,6 +36,8 @@ const AdminReview = ({ reviews }) => {
     }
   };
 
+  console.log(reviews);
+
   return (
     <>
       <Heading mt={10}>{t("review", { ns: "courses" })}</Heading>
@@ -48,26 +51,37 @@ const AdminReview = ({ reviews }) => {
         </Stack>
       ) : (
         reviews.map((item) => (
-          <Flex key={item._id} gap={4} mt={6} borderBottomWidth={"1px"} pb={2}>
-            <Avatar
-              bg={useColorModeValue("gray.200", "gray.600")}
-              display={{ base: "none", md: "block" }}
-              size={"md"}
-            />
-            <Box>
-              <Flex align={"center"} gap={2} mt={1}>
-                <Text fontWeight={"bold"}>{item.name}</Text>
-                <Text>
-                  {formatDistance(new Date(item.updatedAt), new Date(), {
-                    locale: getLocalLanguage(),
-                  })}{" "}
-                  {t("ago", { ns: "courses" })}
-                </Text>
-              </Flex>
-              <ReactStars edit={false} value={Number(item.rating)} />
-              <Text mt={2}>{item.summary}</Text>
-            </Box>
-          </Flex>
+          <Box key={item._id} mt={6} pb={2} borderBottomWidth={"1px"}>
+            <HStack gap={2}>
+              <Avatar
+                bg={useColorModeValue("gray.200", "gray.600")}
+                display={{ base: "none", md: "block" }}
+                size={"md"}
+                name={item.author.email}
+              />
+              <Box>
+                <Flex
+                  align={"center"}
+                  gap={2}
+                  mt={1}
+                  direction={"column"}
+                  alignItems={"flex-start"}
+                >
+                  <Text fontWeight={"bold"}>{item.author.email}</Text>
+                  <HStack>
+                    <ReactStars edit={false} value={Number(item.rating)} />
+                    <Text>
+                      {formatDistance(new Date(item.updatedAt), new Date(), {
+                        locale: getLocalLanguage(),
+                      })}{" "}
+                      {t("ago", { ns: "courses" })}
+                    </Text>
+                  </HStack>
+                </Flex>
+              </Box>
+            </HStack>
+            <Text mt={2}>{item.summary}</Text>
+          </Box>
         ))
       )}
       <Center mt={5}>

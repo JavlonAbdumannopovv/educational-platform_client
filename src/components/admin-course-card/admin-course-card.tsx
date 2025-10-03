@@ -2,11 +2,15 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Card,
   Divider,
   Flex,
   Heading,
+  HStack,
+  Icon,
   Stack,
   Text,
+  useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
 import Image from "next/image";
@@ -19,6 +23,10 @@ import { useActions } from "src/hooks/useActions";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 import { AdminCourseCardProps } from "./admin-course-card.prop";
 import { useRouter } from "next/router";
+import { IoLanguageOutline } from "react-icons/io5";
+import { AiOutlineProject } from "react-icons/ai";
+
+<Divider />;
 
 const AdminCourseCard: FC<AdminCourseCardProps> = ({ course }): JSX.Element => {
   const { deleteAdminCourse } = useActions();
@@ -44,37 +52,41 @@ const AdminCourseCard: FC<AdminCourseCardProps> = ({ course }): JSX.Element => {
     }
   };
 
+  console.log(course);
+
   return (
-    <Box p={5} boxShadow={"dark-lg"} mt={5} borderRadius={"lg"}>
-      <Stack spacing={2}>
-        <Box pos={"relative"} w={"100%"} h={"200px"}>
-          <Image
-            fill
-            src={loadImage(course.previewImage)}
-            style={{ objectFit: "cover", borderRadius: "10px" }}
-            alt={course.title}
-          />
-        </Box>
-        <Heading fontSize={"xl"}>{course.title}</Heading>
+    <Card
+      backgroundColor={useColorModeValue("gray.100", "gray.800")}
+      boxShadow={useColorModeValue("lg", "dark-lg")}
+      borderRadius={"lg"}
+      mt={10}
+    >
+      <Box pos={"relative"} w={"100%"} h={"200px"}>
+        <Image
+          fill
+          src={loadImage(course.previewImage)}
+          style={{ objectFit: "cover", borderRadius: "10px 10px 0 0" }}
+          alt={course.title}
+        />
+      </Box>
+      <Stack spacing={4} p={5}>
+        <Heading fontSize={"2xl"}>{course.title}</Heading>
+        <HStack gap={4}>
+          <Flex align={"center"} gap={1}>
+            <Icon as={IoLanguageOutline} w={6} h={6} />
+            <Text fontSize={18}>{course.language}</Text>
+          </Flex>
+          <Flex align={"center"} gap={1}>
+            <Icon as={AiOutlineProject} w={6} h={6} />
+            <Text
+              color={course.isActive ? "green.500" : "red.500"}
+              fontSize={18}
+            >
+              {course.isActive ? "Active" : "Draft"}
+            </Text>
+          </Flex>
+        </HStack>
         <Divider />
-        <Flex
-          align={"center"}
-          gap={2}
-          fontSize={"16px"}
-          color={"facebook.200"}
-          fontWeight={"bold"}
-        >
-          <Text color={"facebook.500"}>
-            {t("language", { ns: "instructor" })}:
-          </Text>
-          <Text>{course.language}</Text>
-        </Flex>
-        <Text fontWeight={"bold"} color={"facebook.500"}>
-          {t("status", { ns: "instructor" })}:{" "}
-          <Box as={"span"} color={course.isActive ? "green.500" : "red.500"}>
-            {course.isActive ? "Active" : "Draft"}
-          </Box>
-        </Text>
         <ButtonGroup>
           <Button
             w={"full"}
@@ -95,7 +107,7 @@ const AdminCourseCard: FC<AdminCourseCardProps> = ({ course }): JSX.Element => {
           </Button>
         </ButtonGroup>
       </Stack>
-    </Box>
+    </Card>
   );
 };
 

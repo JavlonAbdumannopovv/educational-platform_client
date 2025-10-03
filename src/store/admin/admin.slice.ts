@@ -14,7 +14,7 @@ import { AdminIntialStateType } from "./admin.interface";
 const initialState: AdminIntialStateType = {
   isLoading: false,
   error: null,
-  courses: [],
+  courses: [] as CourseType[],
   instructors: [],
   users: [],
   course: {} as CourseType,

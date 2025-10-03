@@ -31,3 +31,5 @@ export { default as Verification } from "./verification/verification";
 export { default as DashboardAccordionItem } from "./dashboard-accordion-item/dashboard-accordion-item";
 export { default as UserAllCoursesCard } from "./user-all-courses-card/user-all-courses-card";
 export { default as Logo } from "./logo/logo";
+export { default as SectionHero } from "./section-hero/section-hero";
+export { default as ChartData } from "./chart-data/chart-data";
