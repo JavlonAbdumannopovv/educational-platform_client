@@ -10,6 +10,7 @@ const initialState: InstructorIntialStateType = {
   courses: [],
   course: null,
   instructors: [],
+  instructor: null,
   students: [],
 };
 
@@ -28,6 +29,10 @@ export const instructorSlice = createSlice({
     },
     getInstructors: (state, action: PayloadAction<InstructorType[]>) => {
       state.instructors = action.payload;
+    },
+
+     getDetailedInstructor: (state, action: PayloadAction<InstructorType>) => {
+      state.instructor = action.payload;
     },
 
     getStudents: (state, action: PayloadAction<StudentType[]>) => {

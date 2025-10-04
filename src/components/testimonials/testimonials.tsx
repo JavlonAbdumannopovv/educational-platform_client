@@ -11,7 +11,6 @@ const Testimonials = () => {
 	return (
 		<>
 			<SectionTitle
-				textAlign={'center'}
 				title={t('testimonials_title', { ns: 'home' })}
 				subtitle={t('testimonials_description', { ns: 'home' })}
 			/>

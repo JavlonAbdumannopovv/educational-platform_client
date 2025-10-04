@@ -33,3 +33,5 @@ export { default as UserAllCoursesCard } from "./user-all-courses-card/user-all-
 export { default as Logo } from "./logo/logo";
 export { default as SectionHero } from "./section-hero/section-hero";
 export { default as ChartData } from "./chart-data/chart-data";
+export { default as Books } from "./books/books";
+export { default as InstructorCourseCard } from "./instructor-course-card/instructor-course-card";

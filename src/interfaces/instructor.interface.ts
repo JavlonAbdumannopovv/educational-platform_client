@@ -1,3 +1,4 @@
+import { CourseType } from "./course.interface";
 import { UserType } from "./user.interface";
 
 export interface InstructorType {
@@ -10,6 +11,7 @@ export interface InstructorType {
   socialMedia: string;
   author: UserType;
   approved: boolean;
+  courses?: CourseType[];
 }
 
 export interface SectionType {

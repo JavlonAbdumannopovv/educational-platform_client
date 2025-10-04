@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Card,
   Divider,
   Flex,
   Heading,
@@ -8,6 +9,7 @@ import {
   Icon,
   Stack,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { AiOutlineClockCircle } from "react-icons/ai";
@@ -17,18 +19,14 @@ import ReactStars from "react-stars";
 import { loadImage } from "src/helpers/image.helper";
 import { PopularCoursesCardProps } from "./popular-courses-card.props";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 const PopularCoursesCard = ({ item }: PopularCoursesCardProps) => {
   const { push } = useRouter();
+  const { t } = useTranslation();
 
   return (
-    <Stack
-      key={item.title}
-      spacing={3}
-      p={3}
-      cursor={"pointer"}
-      onClick={() => push(`courses/${item.slug}`)}
-    >
+    <Card key={item.title} variant={"outline"} background={useColorModeValue("gray.50", "gray.800")}>
       <Box pos={"relative"} w={"full"} h={"210px"}>
         <Image
           src={loadImage(item.previewImage)}
@@ -37,47 +35,52 @@ const PopularCoursesCard = ({ item }: PopularCoursesCardProps) => {
           style={{ objectFit: "cover", borderRadius: "10px" }}
         />
       </Box>
-      <HStack>
-        <Text color={"#e59819"}>{item.reviewAvg || 0}</Text>
-        <ReactStars
-          edit={false}
-          value={item.reviewAvg || 5}
-          color2={"#e59819"}
-        />
-        <Text opacity={".8"}>({item.reviewCount || 0})</Text>
-      </HStack>
-      <Heading fontSize={"xl"}>{item.title}</Heading>
-      <HStack>
-        <Flex align={"center"} gap={1}>
-          <Icon as={CiViewList} />
-          <Text>{item.lessonCount} Lesson</Text>
-        </Flex>
-        <Flex align={"center"} gap={1}>
-          <Icon as={AiOutlineClockCircle} />
-          <Text>{item.totalHour} Hour</Text>
-        </Flex>
-        <Flex align={"center"} gap={1}>
-          <Icon as={SiGoogleanalytics} />
-          <Text>{item.level}</Text>
-        </Flex>
-      </HStack>
-      <Divider />
-      <Flex justify={"space-between"} align={"center"}>
-        <HStack align={"center"}>
-          <Avatar
-            src={loadImage(item.author.avatar)}
-            name={item.author.fullName}
+      <Stack
+        spacing={3}
+        p={3}
+        cursor={"pointer"}
+        onClick={() => push(`courses/${item.slug}`)}
+      >
+        <HStack>
+          <Text color={"#e59819"}>{item.reviewAvg || 0}</Text>
+          <ReactStars
+            edit={false}
+            value={item.reviewAvg || 5}
+            color2={"#e59819"}
           />
-          <Text>{item.author.fullName}</Text>
+          <Text opacity={".8"}>({item.reviewCount || 0})</Text>
         </HStack>
-        <Text>
-          {item.price.toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-          })}
+        <Heading fontSize={"2xl"}>{item.title}</Heading>
+        <Text h={"100px"} overflow={"hidden"}>
+          {item.exerpt}
         </Text>
-      </Flex>
-    </Stack>
+        <HStack>
+          <Flex align={"center"} gap={1}>
+            <Icon as={CiViewList} />
+            <Text>{item.lessonCount} Lesson</Text>
+          </Flex>
+          <Flex align={"center"} gap={1}>
+            <Icon as={AiOutlineClockCircle} />
+            <Text>{item.totalHour} Hour</Text>
+          </Flex>
+          <Flex align={"center"} gap={1}>
+            <Icon as={SiGoogleanalytics} />
+            <Text>{item.level}</Text>
+          </Flex>
+        </HStack>
+        <Divider />
+        <Flex justify={"space-between"} align={"center"}>
+          <HStack align={"center"}>
+            <Avatar
+              src={loadImage(item.author.avatar)}
+              name={item.author.fullName}
+            />
+            <Text>{item.author.fullName}</Text>
+          </HStack>
+          <Text>{t("free", { ns: "courses" })}</Text>
+        </Flex>
+      </Stack>
+    </Card>
   );
 };
 

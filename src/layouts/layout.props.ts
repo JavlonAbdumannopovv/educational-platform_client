@@ -12,4 +12,5 @@ export interface AppProviderProps {
   course: CourseType;
   instructors: InstructorType[];
   books: BooksType[];
+  instructor: InstructorType;
 }

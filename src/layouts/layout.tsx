@@ -36,6 +36,7 @@ export const withLayout = <T extends Record<string, unknown> & AppProviderProps>
 					courses={props.courses}
 					instructors={props.instructors}
 					books={props.books}
+          instructor={props.instructor}
 				>
 					<Component {...props} />
 				</AppProvider>

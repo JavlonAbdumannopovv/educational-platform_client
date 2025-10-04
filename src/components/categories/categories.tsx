@@ -1,4 +1,4 @@
-import { Box, Icon, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Icon, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import Carousel from 'react-multi-carousel';
 import { categoryCarousel } from 'src/config/carousel';
@@ -11,7 +11,7 @@ const Categories = () => {
 	const { t } = useTranslation();
 
 	return (
-		<>
+		<Stack gap={2}>
 			<SectionTitle title={t('category_title', { ns: 'home' })} subtitle={t('category_description', { ns: 'home' })} />
 			<Carousel responsive={categoryCarousel} showDots={false} arrows={false} autoPlay={true} autoPlaySpeed={2000} infinite>
 				{categories.map(item => (
@@ -23,7 +23,6 @@ const Categories = () => {
 						textAlign={'center'}
 						p={5}
 						borderRadius={'lg'}
-						cursor={'pointer'}
 					>
 						<Icon as={item.icon} w={20} h={20} fill={fill} />
 						<Text mt={2} fontSize={'lg'}>
@@ -32,7 +31,7 @@ const Categories = () => {
 					</Box>
 				))}
 			</Carousel>
-		</>
+		</Stack>
 	);
 };
 

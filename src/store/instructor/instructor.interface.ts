@@ -10,6 +10,7 @@ export interface InstructorIntialStateType {
   courses: CourseType[];
   course: CourseType | null;
   instructors: InstructorType[];
+  instructor: InstructorType | null;  
   students: StudentType[];
 }
 

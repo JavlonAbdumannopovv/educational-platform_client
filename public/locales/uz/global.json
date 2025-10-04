@@ -109,5 +109,6 @@
 	"second_is_required": "soniyalar talab qilinadi",
 	"job_required": "Kasbingizni kiritng",
 	"preview_img_is_requried": "Rasmni oldindan koʻrish talab qilinadi",
-	"pdf_is_requried": "PDF talab qilinadi"
+	"pdf_is_requried": "PDF talab qilinadi",
+  "detail": "Detail"
 }

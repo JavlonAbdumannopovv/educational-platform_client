@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   Card,
@@ -12,21 +11,17 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { AiOutlineClockCircle } from "react-icons/ai";
-import { CiViewList } from "react-icons/ci";
 import { SiGoogleanalytics } from "react-icons/si";
-import ReactStars from "react-stars";
-import { AllCoursesCardProps } from "./all-courses-card.props";
 import { loadImage } from "src/helpers/image.helper";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
+import { IoCalendarSharp } from "react-icons/io5";
+import { format } from "date-fns";
 
-<Divider />;
-
-const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
+const InstructorCourseCard = ({course}) => {
   const router = useRouter();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const onDetailedCourse = () => router.push(`/courses/${course.slug}`);
 
@@ -55,15 +50,6 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
 
           <Stack p={4}>
             <Heading fontSize={"2xl"}>{course.title}</Heading>
-            <HStack>
-              <Text color={"#e59819"}>{course.reviewAvg || 0}</Text>
-              <ReactStars
-                edit={false}
-                value={course.reviewAvg || 5}
-                color2={"#e59819"}
-              />
-              <Text opacity={".8"}>({course.reviewCount || 0})</Text>
-            </HStack>
             <Text>
               {course.exerpt.length >= 100
                 ? course.exerpt.slice(0, 100)
@@ -75,14 +61,10 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
               fontSize={"14px"}
               direction={{ base: "column", sm: "row" }}
             >
-              <HStack>
+              <HStack gap={2}>
                 <Flex align={"center"} gap={1}>
-                  <Icon as={CiViewList} />
-                  <Text>{course.lessonCount} lesson</Text>
-                </Flex>
-                <Flex align={"center"} gap={1}>
-                  <Icon as={AiOutlineClockCircle} />
-                  <Text>{course.totalHour} hours</Text>
+                  <Icon as={IoCalendarSharp} />
+                  <Text>{format(new Date(course.updatedAt), "dd.MM.yyyy")}</Text>
                 </Flex>
                 <Flex align={"center"} gap={1}>
                   <Icon as={SiGoogleanalytics} />
@@ -92,19 +74,13 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
             </Flex>
             <Divider />
             <Flex
-              align={{ base: "flex-start", md: "center" }}
-              justify={"space-between"}
+              justify={"flex-end"}
               direction={{ base: "column", md: "row" }}
             >
-              <Avatar
-                src={loadImage(course.author.avatar)}
-                name={course.author.fullName}
-              />
               <Flex gap={4} mt={{ base: 5, md: 0 }}>
                 <Button
                   onClick={onDetailedCourse}
                   colorScheme={"facebook"}
-                  // variant={"outline"}
                 >
                   {t("detail", { ns: "global" })}
                 </Button>
@@ -117,4 +93,4 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
   );
 };
 
-export default AllCoursesCard;
+export default InstructorCourseCard;
