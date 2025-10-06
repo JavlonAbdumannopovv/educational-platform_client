@@ -3,9 +3,9 @@ import {
   Box,
   Center,
   Flex,
-  Heading,
   Icon,
   Spinner,
+  Stack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -51,14 +51,15 @@ const Sidebar = ({ ...props }) => {
   return (
     <Box
       position={"fixed"}
+      borderRight={"1px"}
+      borderRightColor={useColorModeValue("gray.200", "gray.700")}
       display={{ base: "none", lg: "block" }}
-      top={"12vh"}
-      right={"2vh"}
-      bottom={"2vh"}
+      top={"0"}
+      left={"0"}
+      bottom={"0"}
       w={"400px"}
       bg={useColorModeValue("gray.50", "gray.900")}
       color={useColorModeValue("gray.700", "gray.200")}
-      borderRadius={"lg"}
       boxShadow={"xl"}
       p={5}
       zIndex={9}
@@ -82,8 +83,7 @@ const Sidebar = ({ ...props }) => {
           />
         </Center>
       ) : (
-        <>
-          <Heading fontSize={"2xl"}>Kurs bo'limlari</Heading>
+        <Stack mt={5}>
           <Flex align={"center"} gap={10} mt={3}>
             <Flex alignItems={"center"} direction={"row"} gap={1}>
               <Icon as={CiBoxList} w={5} h={5} />
@@ -106,7 +106,7 @@ const Sidebar = ({ ...props }) => {
               <DashboardAccordionItem key={section._id} section={section} />
             ))}
           </Accordion>
-        </>
+        </Stack>
       )}
     </Box>
   );

@@ -6,6 +6,7 @@ import {
   Divider,
   Stack,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
 import Header from "./header";
@@ -22,23 +23,23 @@ const DashboardPageComponent = () => {
       <Sidebar
         display={{ base: "none", lg: "block" }}
         position={"fixed"}
-        top={"12vh"}
+        top={"10vh"}
         right={"2vh"}
-        bottom={"2vh"}
+        bottom={"0"}
         w={"400px"}
       />
 
       <Box
         mt={"12vh"}
-        marginRight={{ base: 2, lg: "450px" }}
-        marginLeft={{ base: 2, lg: 5 }}
+        marginLeft={{ base: 2, lg: "450px" }}
+        marginRight={{ base: 2, lg: 5 }}
       >
         <Container maxW={"container.lg"}>
           <Stack gap={5}>
             <Text fontSize={25} fontWeight={"bold"}>
               {lesson.name}
             </Text>
-            <Card>
+            <Card background={useColorModeValue("gray.100", "gray.900")}>
               <CardBody>
                 <Box
                   dangerouslySetInnerHTML={{ __html: lesson.embedVideo }}

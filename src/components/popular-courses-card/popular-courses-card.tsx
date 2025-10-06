@@ -26,7 +26,7 @@ const PopularCoursesCard = ({ item }: PopularCoursesCardProps) => {
   const { t } = useTranslation();
 
   return (
-    <Card key={item.title} variant="outline" background={useColorModeValue("gray.50", "gray.700")}>
+    <Card key={item.title} variant="outline" background={useColorModeValue("gray.50", "gray.700")} mx={2}>
       <Box pos={"relative"} w={"full"} h={"210px"}>
         <Image
           src={loadImage(item.previewImage)}

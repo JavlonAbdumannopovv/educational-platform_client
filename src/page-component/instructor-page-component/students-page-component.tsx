@@ -20,11 +20,18 @@ import { courseusers } from "src/config/constants";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 import { StudentType } from "src/interfaces/instructor.interface";
 import { ChartData } from "src/components";
+import { API_URL, getInstructorurl } from "src/config/api.config";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useActions } from "src/hooks/useActions";
 
 const StudentsPageComponent = () => {
   const [searchVal, setSearchVal] = useState("");
   const [allStudents, setAllStudents] = useState<StudentType[]>([]);
   const { students } = useTypedSelector((state) => state.instructor);
+  const [isLoading, setIsLoading] = useState(false);
+  const [limit, setLimit] = useState(10);
+  const { getStudents } = useActions();
 
   const { t } = useTranslation();
 
@@ -38,9 +45,26 @@ const StudentsPageComponent = () => {
     );
   };
 
+  const getMoreStudents = async () => {
+    setIsLoading(true);
+    const token = Cookies.get("refresh");
+    setLimit((prevState) => prevState + 10);
+
+    const students = await axios.get(
+      `${API_URL}${getInstructorurl("students")}?limit=${limit}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    getStudents(students.data);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     setAllStudents(students);
-  }, []);
+  }, [students]);
 
   return (
     <>
@@ -71,6 +95,9 @@ const StudentsPageComponent = () => {
                 colorScheme={"facebook"}
                 variant={"outline"}
                 rightIcon={<AiOutlineReload />}
+                onClick={getMoreStudents}
+                isLoading={isLoading}
+                loadingText={`${t("loading", { ns: "global" })}`}
               >
                 {t("more", { ns: "instructor" })}...
               </Button>

@@ -73,9 +73,9 @@ const UserDashboardPageComponent = () => {
               ) : (
                 <>
                   {tabIndex === 0 && user && <Account />}
-                  {tabIndex === 1 && <Settings />}
-                  {tabIndex === 2 && <MyCourses courses={courses} />}
-                  {tabIndex === 3 && <DangerZone />}
+                  {tabIndex === 1 && user && <Settings />}
+                  {tabIndex === 2 && user && <MyCourses courses={courses} />}
+                  {tabIndex === 3 && user && <DangerZone />}
                 </>
               )}
             </TabPanels>

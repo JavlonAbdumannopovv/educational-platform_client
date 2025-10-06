@@ -60,7 +60,7 @@ const InstructorEditCourseCard: FC<InstructoCoursesCardProps> = ({
       borderRadius={"lg"}
     >
       <Stack spacing={5}>
-        <Box pos={"relative"} w={"100%"} h={"300px"}>
+        <Box pos={"relative"} w={"full"} h={"300px"}>
           <Image
             fill
             src={loadImage(item.previewImage)}

@@ -8,6 +8,26 @@ import {
 import React, { useState } from "react";
 import SectionTitle from "../section-title/section-title";
 import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const ChartData = ({ dataArr, title, subtitle }) => {
   const [chartData] = useState({
@@ -24,25 +44,31 @@ const ChartData = ({ dataArr, title, subtitle }) => {
         ],
         borderColor: "black",
         borderWidth: 2,
+        tension: 0.4,
       },
     ],
   });
+
   return (
     <Card
       mt={10}
       background={useColorModeValue("gray.50", "gray.700")}
-      boxShadow={"lg"}
+      boxShadow="lg"
     >
       <CardBody>
         <HStack gap={4}>
-          <SectionTitle title={title} subtitle={subtitle} w={"30%"}/>
-          <Box className="chart-container" w={"70%"}>
+          <SectionTitle title={title} subtitle={subtitle} w="30%" />
+          <Box className="chart-container" w="70%">
             <Line
               data={chartData}
               options={{
+                responsive: true,
                 plugins: {
                   title: { display: false },
                   legend: { display: false },
+                },
+                scales: {
+                  y: { beginAtZero: true },
                 },
               }}
             />

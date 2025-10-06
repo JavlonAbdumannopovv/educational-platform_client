@@ -61,13 +61,13 @@ const DashboardAccordionItem = ({ section }: { section: SectionType }) => {
   };
 
   return (
-    <AccordionItem key={section._id} borderRadius={"8px"} mt={5}>
+    <AccordionItem key={section._id} borderRadius={""} mt={5} border={"none"}>
       <AccordionButton
         height={"60px"}
-        background={useColorModeValue("gray.100", "gray.700")}
+        background={useColorModeValue("gray.200", "gray.700")}
         borderRadius={"md"}
         _hover={{
-          backgroundColor: useColorModeValue("gray.200", "gray.600"),
+          backgroundColor: useColorModeValue("gray.300", "gray.600"),
         }}
         fontWeight={"bold"}
         // onClick={() => onModule(id)}
@@ -77,7 +77,12 @@ const DashboardAccordionItem = ({ section }: { section: SectionType }) => {
           {section.title}
         </Box>
       </AccordionButton>
-      <AccordionPanel px={0} pb={4}>
+      <AccordionPanel
+        px={0}
+        pb={4}
+        borderLeft={"1px"}
+        borderLeftColor={useColorModeValue("gray.200", "gray.700")}
+      >
         {section.lessons.map((lesson) => (
           <Box
             key={lesson._id}

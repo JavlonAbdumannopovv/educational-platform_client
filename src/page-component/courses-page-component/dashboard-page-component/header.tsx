@@ -131,6 +131,8 @@ const Header = () => {
 
   return (
     <Box
+      borderBottom={"1px"}
+      borderBottomColor={useColorModeValue("gray.200", "gray.700")}
       position={"fixed"}
       top={0}
       left={0}

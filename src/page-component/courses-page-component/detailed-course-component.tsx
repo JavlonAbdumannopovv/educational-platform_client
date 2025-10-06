@@ -97,7 +97,10 @@ const DetailedCourseComponent = () => {
         isClosable: true,
       });
     }
-    if ((user?.courses as string[]).includes(course?._id as string)) {
+    if (
+      Array.isArray(user?.courses) &&
+      user?.courses.includes(course?._id as string)
+    ) {
       router.push(`/courses/dashboard/${course?.slug}`);
     } else {
       enrollUser({
@@ -106,7 +109,7 @@ const DetailedCourseComponent = () => {
           checkAuth();
           router.push(`/courses/dashboard/${course?.slug}`);
           toast({
-            title: "Kurs muvaqqiyatli ro'yxatga qo'shildi",
+            title: "Kurs muvaffaqiyatli ro'yxatga qo'shildi",
             position: "top-right",
             isClosable: true,
           });

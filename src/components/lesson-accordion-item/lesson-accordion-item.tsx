@@ -67,19 +67,45 @@ const LessonAccordionItem = ({
         draggable
         onDragStart={onDragStartLesson}
         onDrop={onDropLesson}
-        py={3}
+        p={3}
         w={"full"}
         cursor={isLoading ? "progress" : "pointer"}
         justify={"space-between"}
         align={"center"}
-        borderColor={useColorModeValue("gray.200", "gray.600")}
+        borderBottom={useColorModeValue("1px solid gray", "1px solid gray")}
+        color={useColorModeValue("black", "white")}
+        borderRadius={"lg"}
+        _hover={{
+          backgroundColor: useColorModeValue("gray.100", "gray.700"),
+        }}
+        fontWeight={"bold"}
+        transition={"all 0.2s ease"}
+        
       >
-        <Flex align={"center"} gap={2} w={"80%"}>
-          <Icon as={FaEdit} onClick={onToggle} />
+        <Flex align={"center"} gap={4} w={"80%"}>
+          <Icon
+            as={FaEdit}
+            onClick={onToggle}
+            w={7}
+            color={"yellow.400"}
+            _hover={{
+              color: "yellow.600",
+            }}
+          />
           <Text>{lesson.name}</Text>
         </Flex>
         <Flex gap={3}>
-          <Icon as={FiDelete} cursor={"pointer"} onClick={onDeleteLesson} />
+          <Icon
+            as={FiDelete}
+            cursor={"pointer"}
+            onClick={onDeleteLesson}
+            w={5}
+            h={5}
+            color={"red.400"}
+            _hover={{
+              color: "red.700",
+            }}
+          />
         </Flex>
       </Flex>
       <Collapse in={isOpen} animateOpacity>

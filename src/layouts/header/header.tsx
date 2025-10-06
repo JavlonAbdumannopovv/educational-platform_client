@@ -28,6 +28,7 @@ import { useActions } from "src/hooks/useActions";
 import { useAuth } from "src/hooks/useAuth";
 import { HeaderProps } from "./header.props";
 import { Logo } from "src/components";
+import { loadImage } from "src/helpers/image.helper";
 
 const Header = ({ onToggle }: HeaderProps) => {
   const { toggleColorMode, colorMode } = useColorMode();
@@ -115,7 +116,11 @@ const Header = ({ onToggle }: HeaderProps) => {
                 cursor={"pointer"}
                 minW={0}
               >
-                <Avatar backgroundColor={"facebook.500"} src={user.avatar} />
+                <Avatar
+                  backgroundColor={"facebook.500"}
+                  src={loadImage(user.avatar && user.avatar)}
+                  name={user.fullName ? user.fullName : user.email}
+                />
               </MenuButton>
               <MenuList p={0} m={0}>
                 {user.role === "INSTRUCTOR" && (

@@ -90,19 +90,21 @@ const Settings = () => {
   };
 
   useEffect(() => {
-    if (user) {
-      const { fullName, job, bio, birthday } = user;
-      const full: string[] = fullName?.split(" ") as string[];
-      setValues({
-        firstName: full[0],
-        lastName: full[1],
-        job: job as string,
-        bio: bio as string,
-        birthday: birthday as string,
-      });
-    }
+    if (!user) return;
+
+    const { fullName, job, bio, birthday } = user;
+    const [firstName = "", lastName = ""] = fullName?.split(" ") ?? ["", ""];
+
+    setValues({
+      firstName,
+      lastName,
+      job: job ?? "",
+      bio: bio ?? "",
+      birthday: birthday ?? "",
+    });
+
     console.log(user);
-  }, []);
+  }, [user]);
 
   return (
     <>

@@ -9,6 +9,7 @@ import {
   Flex,
   Icon,
   List,
+  useColorModeValue,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
@@ -82,7 +83,7 @@ const SectionAccordion = ({
   };
 
   return (
-    <AccordionItem>
+    <AccordionItem border={"none"} transition={"all"}>
       <>
         {error && (
           <ErrorAlert
@@ -95,7 +96,15 @@ const SectionAccordion = ({
       <AccordionButton
         h={14}
         p={2}
+        mb={1}
+        background={useColorModeValue("gray.100", "gray.700")}
+        color={useColorModeValue("black", "white")}
+        borderRadius={"lg"}
+        _hover={{
+          backgroundColor: useColorModeValue("gray.200", "gray.600"),
+        }}
         fontWeight={"bold"}
+        fontSize={18}
         cursor={isLoading ? "progress" : "pointer"}
         draggable
         onDragStart={onDragStartSection}
@@ -107,8 +116,21 @@ const SectionAccordion = ({
             {section.title}
           </Flex>
           <Flex fontSize={"15px"} align={"center"} gap={3}>
-            <Icon as={MdEdit} w={5} h={5} onClick={onEditSection} />
-            <Icon as={MdDelete} w={5} h={5} onClick={onDelete} />
+            <Icon as={MdEdit} w={5} h={5} onClick={onEditSection} 
+               color={"yellow.400"}
+            _hover={{
+              color: "yellow.600",
+            }}/>
+            <Icon
+              as={MdDelete}
+              w={5}
+              h={5}
+              onClick={onDelete}
+              color={"red.500"}
+              _hover={{
+                color: "red.700",
+              }}
+            />
             <AccordionIcon />
           </Flex>
         </Flex>

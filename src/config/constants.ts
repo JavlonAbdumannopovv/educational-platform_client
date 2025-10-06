@@ -39,9 +39,11 @@ export const courseCategory = [
   "Front-End",
   "Back-End",
   "Full-Stack",
-  "Mobile Application",
+  "Computer Science",
   "Web Design",
   "Graphic Design",
+  "Mobile Applications",
+  "Artificial Intelligence",
 ];
 
 export const courseLevel = ["Beginner", "Intermediate", "Expert"];

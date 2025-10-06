@@ -52,10 +52,10 @@ const InstructorsMainDetailedPageComponent = () => {
                   <Icon as={FaVideo} w={6} h={6} />
                   <Text fontSize={18}>{instructor?.totalCourses}</Text>
                 </HStack>
-                {instructor?.author.birthday ? (
+                {instructor?.author?.birthday ? (
                   <HStack>
                     <Icon as={IoCalendarSharp} w={6} h={6} />
-                    <Text fontSize={18}>{instructor?.author.birthday}</Text>
+                    <Text fontSize={18}>{instructor?.author?.birthday}</Text>
                   </HStack>
                 ) : (
                   ""
@@ -64,7 +64,7 @@ const InstructorsMainDetailedPageComponent = () => {
             </Flex>
           </HStack>
           <Text>
-            {instructor?.author.bio ? instructor?.author.bio : "bio..."}
+            {instructor?.author?.bio ? instructor?.author?.bio : "bio..."}
           </Text>
         </Stack>
         <Divider />
@@ -75,6 +75,7 @@ const InstructorsMainDetailedPageComponent = () => {
             md: "1fr 1fr",
             lg: "repeat(3, 1fr)",
           }}
+          gap={4}
         >
           {instructor?.courses?.map((course) => (
             <InstructorCourseCard course={course} />

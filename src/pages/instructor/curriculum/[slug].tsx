@@ -33,6 +33,8 @@ export const getServerSideProps: GetServerSideProps<CoursesPageType> = async ({
     query.slug as string
   );
 
+  console.log(query.slug);
+
   return {
     props: { course },
   };

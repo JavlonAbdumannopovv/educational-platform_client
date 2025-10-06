@@ -2,11 +2,10 @@ import React from "react";
 import SectionTitle from "../section-title/section-title";
 import { useTranslation } from "react-i18next";
 import {
-  Box,
   Button,
+  Card,
   Divider,
   Flex,
-  Grid,
   HStack,
   Image,
   Stack,
@@ -16,13 +15,14 @@ import {
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 import { loadImage } from "src/helpers/image.helper";
 import { FaEdit } from "react-icons/fa";
+import Carousel from "react-multi-carousel";
+import { courseCarousel } from "src/config/carousel";
 
 <Divider />;
 
 const Books = () => {
   const { t } = useTranslation();
   const { books } = useTypedSelector((state) => state.books);
-  const priceBackgroundColor = useColorModeValue("gray.200", "gray.700");
 
   return (
     <Stack gap={2}>
@@ -31,59 +31,50 @@ const Books = () => {
         subtitle={t("description", { ns: "books" })}
         pt={4}
       />
-      <Grid
-        gap={3}
-        gridTemplateColumns={{
-          base: "repeat(1, 1fr)",
-          md: "repeat(2, 1fr)",
-          xl: "repeat(3, 1fr)",
-        }}
-        pb={5}
+      <Carousel
+        responsive={courseCarousel}
+        arrows={true}
+        showDots={false}
+        autoPlay={true}
+        autoPlaySpeed={5000}
+        infinite
       >
-        {books
-          .slice(0, 3)
-          .reverse()
-          .map((item) => (
-            <Box key={item._id} pos={"relative"}>
-              <Image
-                src={loadImage(item.image)}
-                alt={item.title}
-                borderRadius={"lg"}
-                w={"full"}
-                h={"250px"}
-                objectFit={"cover"}
-              />
+        {books.map((item) => (
+          <Card
+            key={item._id}
+            pos={"relative"}
+            mx={2}
+            background={useColorModeValue("gray.50", "gray.700")}
+            variant={"outline"}
+          >
+            <Image
+              src={loadImage(item.image)}
+              alt={item.title}
+              borderRadius={"lg"}
+              w={"full"}
+              h={"250px"}
+              objectFit={"cover"}
+            />
 
-              <Flex
-                pos={"absolute"}
-                left={2}
-                right={2}
-                borderRadius={"lg"}
-                boxShadow={"lg"}
-                bottom={"-10"}
-                minH={"90px"}
-                p={2}
-                bg={priceBackgroundColor}
-                flexDir={"column"}
-              >
-                <HStack justifyContent={"space-between"}>
-                  <Stack>
-                    <Text fontSize={"2xl"}>{item.title}</Text>
-                    <Text fontSize={"xl"}>{t("free", { ns: "home" })}</Text>
-                  </Stack>
-                  <Button
-                    // onClick={() => editOpenModal(item)}
-                    w={"fit-content"}
-                    rightIcon={<FaEdit />}
-                    colorScheme={"facebook"}
-                  >
-                    {t("read", { ns: "home" })}
-                  </Button>
-                </HStack>
-              </Flex>
-            </Box>
-          ))}
-      </Grid>
+            <Flex p={4} flexDir={"column"}>
+              <HStack justifyContent={"space-between"}>
+                <Stack>
+                  <Text fontSize={"2xl"}>{item.title}</Text>
+                  {/* <Text fontSize={"xl"}>{t("free", { ns: "home" })}</Text> */}
+                </Stack>
+                <Button
+                  // onClick={() => editOpenModal(item)}
+                  w={"fit-content"}
+                  rightIcon={<FaEdit />}
+                  colorScheme={"facebook"}
+                >
+                  {t("read", { ns: "books" })}
+                </Button>
+              </HStack>
+            </Flex>
+          </Card>
+        ))}
+      </Carousel>
     </Stack>
   );
 };
