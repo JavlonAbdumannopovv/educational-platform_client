@@ -77,7 +77,7 @@ const Sidebar: FC<SidebarProps> = ({ toggle }): JSX.Element => {
 				</Menu>
 				{navigation.map((item, idx) => (
 					<Box key={idx} mt={10}>
-						<Text>{t(item.title, { ns: 'layout' })}</Text>
+						<Text fontSize={18} fontWeight="bold">{t(item.title, { ns: 'layout' })}</Text>
 						{item.links.map((nav, idx) => {
 							const active = `/${router.pathname.split('/')[1]}` == nav.route;
 
@@ -92,7 +92,7 @@ const Sidebar: FC<SidebarProps> = ({ toggle }): JSX.Element => {
 										mt={2}
 									>
 										<HStack gap={2}>
-											<Icon as={nav.icon} />
+											<Icon as={nav.icon} w={5} h={5}/>
 											<Text>{t(nav.label, { ns: 'layout' })}</Text>
 										</HStack>
 									</Button>

@@ -26,7 +26,7 @@ import { useTranslation } from "react-i18next";
 
 const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
   const router = useRouter();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const onDetailedCourse = () => router.push(`/courses/${course.slug}`);
 
@@ -96,16 +96,17 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
               justify={"space-between"}
               direction={{ base: "column", md: "row" }}
             >
-              <Avatar
-                src={loadImage(course.author.avatar)}
-                name={course.author.fullName}
-              />
+              <HStack>
+                <Avatar
+                  src={loadImage(course.author.avatar)}
+                  name={course.author.fullName}
+                />
+                <Text>
+                  {course.author.fullName}
+                </Text>
+              </HStack>
               <Flex gap={4} mt={{ base: 5, md: 0 }}>
-                <Button
-                  onClick={onDetailedCourse}
-                  colorScheme={"facebook"}
-                  // variant={"outline"}
-                >
+                <Button onClick={onDetailedCourse} colorScheme={"facebook"}>
                   {t("detail", { ns: "global" })}
                 </Button>
               </Flex>

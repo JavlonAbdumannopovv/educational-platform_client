@@ -28,7 +28,7 @@ const SectionHero = ({ title, subtitle, imageURL }: SectionHeroProps) => {
               src={imageURL}
               alt="section-hero-image"
               w={"450px"}
-              h={"450px"}
+              h={"auto"}
             />
           </Flex>
         </HStack>

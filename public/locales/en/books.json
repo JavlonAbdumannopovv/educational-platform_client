@@ -7,5 +7,6 @@
 	"filter_business": "Business",
 	"filter_history": "History",
 	"filter_writing": "Writing",
-	"filter_lifestyle": "Lifestyle"
+	"filter_lifestyle": "Lifestyle",
+  "read": "Read"
 }

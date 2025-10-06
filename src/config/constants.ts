@@ -1,23 +1,15 @@
-import {
-  AiFillAmazonCircle,
-  AiOutlineDashboard,
-  AiOutlineUnorderedList,
-} from "react-icons/ai";
-import { CiViewList } from "react-icons/ci";
+import { AiFillAmazonCircle, AiOutlineUnorderedList } from "react-icons/ai";
 import {
   FaApplePay,
-  FaBookReader,
   FaChalkboardTeacher,
   FaDraftingCompass,
   FaFirstdraft,
   FaListAlt,
-  FaQuestionCircle,
   FaUserGraduate,
-  FaRegUser,
 } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { ImBooks } from "react-icons/im";
-import { MdOutlineContactMail, MdOutlineCreateNewFolder } from "react-icons/md";
+import { MdOutlineCreateNewFolder, MdContactPhone } from "react-icons/md";
 import { SiAmd, SiCisco, SiLogitech, SiSpotify } from "react-icons/si";
 import {
   AnnouncementIcons,
@@ -39,6 +31,9 @@ import {
   TurkIcon,
   UzbIcons,
 } from "src/icons";
+import { IoHome, IoVideocam } from "react-icons/io5";
+import { GiBookCover } from "react-icons/gi";
+import { BsQuestionCircleFill } from "react-icons/bs";
 
 export const courseCategory = [
   "Front-End",
@@ -58,22 +53,22 @@ export const navigation = [
       {
         label: "sidebar_title_1_explore",
         route: "/",
-        icon: AiOutlineDashboard,
+        icon: IoHome,
       },
       {
         label: "sidebar_title_1_courses",
         route: "/courses",
-        icon: CiViewList,
+        icon: IoVideocam,
       },
       {
         label: "sidebar_title_1_books",
         route: "/books",
-        icon: FaBookReader,
+        icon: GiBookCover,
       },
       {
         label: "sidebar_title_1_instructors",
         route: "/instructors",
-        icon: FaRegUser,
+        icon: FaChalkboardTeacher,
       },
     ],
   },
@@ -88,17 +83,12 @@ export const navigation = [
       {
         label: "sidebar_title_2_contact",
         route: "/contact",
-        icon: MdOutlineContactMail,
+        icon: MdContactPhone,
       },
-      // {
-      // 	label: 'sidebar_title_2_pricing',
-      // 	route: '/pricing',
-      // 	icon: AiOutlineDollar,
-      // },
       {
         label: "sidebar_title_2_faq",
         route: "/faq",
-        icon: FaQuestionCircle,
+        icon: BsQuestionCircleFill,
       },
     ],
   },

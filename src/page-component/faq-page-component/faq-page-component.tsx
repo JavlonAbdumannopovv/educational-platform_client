@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Card, CardBody } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Card, CardBody, Stack } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import SectionTitle from 'src/components/section-title/section-title';
 import { faq } from 'src/config/constants';
@@ -7,8 +7,8 @@ const FaqPageComponent = () => {
 	const { t } = useTranslation();
 
 	return (
-		<>
-			<SectionTitle title={t('faq_title', { ns: 'global' })} subtitle='' textAlign={'center'} />
+		<Stack alignItems={"center"} pt={5}>
+			<SectionTitle title={t('faq_title', { ns: 'global' })} subtitle='' textAlign={'center'}/>
 			<Box mt={5} minH={'89vh'} maxW={'container.md'} mx={'auto'}>
 				<Card boxShadow={'dark-lg'}>
 					<CardBody>
@@ -30,7 +30,7 @@ const FaqPageComponent = () => {
 					</CardBody>
 				</Card>
 			</Box>
-		</>
+		</Stack>
 	);
 };
 

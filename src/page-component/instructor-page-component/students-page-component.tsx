@@ -1,11 +1,8 @@
 import {
   Box,
   Button,
-  Card,
-  CardBody,
   Heading,
   Input,
-  Stack,
   Table,
   TableCaption,
   TableContainer,
@@ -15,41 +12,19 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { CategoryScale } from "chart.js";
-import Chart from "chart.js/auto";
 import { ChangeEvent, useEffect, useState } from "react";
 import { format } from "date-fns";
-import { Line } from "react-chartjs-2";
 import { useTranslation } from "react-i18next";
 import { AiOutlineFieldNumber, AiOutlineReload } from "react-icons/ai";
-import SectionTitle from "src/components/section-title/section-title";
 import { courseusers } from "src/config/constants";
 import { useTypedSelector } from "src/hooks/useTypedSelector";
 import { StudentType } from "src/interfaces/instructor.interface";
-
-Chart.register(CategoryScale);
+import { ChartData } from "src/components";
 
 const StudentsPageComponent = () => {
   const [searchVal, setSearchVal] = useState("");
   const [allStudents, setAllStudents] = useState<StudentType[]>([]);
   const { students } = useTypedSelector((state) => state.instructor);
-  const [chartData] = useState({
-    labels: courseusers.map((data) => data.year),
-    datasets: [
-      {
-        label: "Users Gained ",
-        data: courseusers.map((data) => data.userGain),
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
-        borderColor: "black",
-        borderWidth: 2,
-      },
-    ],
-  });
 
   const { t } = useTranslation();
 
@@ -69,27 +44,11 @@ const StudentsPageComponent = () => {
 
   return (
     <>
-      <Card>
-        <CardBody>
-          <Stack>
-            <SectionTitle
-              title={t("students_title", { ns: "instructor" })}
-              subtitle={t("students_description", { ns: "instructor" })}
-            />
-            <Box className="chart-container">
-              <Line
-                data={chartData}
-                options={{
-                  plugins: {
-                    title: { display: false },
-                    legend: { display: false },
-                  },
-                }}
-              />
-            </Box>
-          </Stack>
-        </CardBody>
-      </Card>
+      <ChartData
+        title={t("students_title", { ns: "instructor" })}
+        subtitle={t("students_description", { ns: "instructor" })}
+        dataArr={courseusers}
+      />
 
       <Box mt={10}>
         <Heading>{t("all_users", { ns: "instructor" })}</Heading>

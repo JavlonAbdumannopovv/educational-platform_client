@@ -8,6 +8,7 @@ import {
   Icon,
   Stack,
   Text,
+  useColorModeValue
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,7 +40,7 @@ const Instructors = () => {
         mt={5}
       >
         {instructors.map((item, idx) => (
-          <Card key={idx}>
+          <Card key={idx} background={useColorModeValue("gray.50", "gray.700")}>
             <Box pos={"relative"} w={"full"} h={"330px"}>
               <Image
                 src={
