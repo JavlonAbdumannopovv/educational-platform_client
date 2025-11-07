@@ -26,6 +26,9 @@ export interface AuthorType {
   avatar: string;
   job: string;
   students: string[];
+  bio?: string;
+  birthday?: string;
+  _id?: string;
 }
 
 export interface ReviewType {

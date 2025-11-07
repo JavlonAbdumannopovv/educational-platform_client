@@ -6,7 +6,6 @@ import {
   Heading,
   Icon,
   Text,
-  HStack,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { FiCheckCircle } from "react-icons/fi";
@@ -36,14 +35,17 @@ const Overview = () => {
       <Heading mt={10} mb={5} fontSize={25}>
         {t("required", { ns: "courses" })}
       </Heading>
-      <HStack gap={2} wrap="wrap">
+      <Grid
+        mt={5}
+        gridTemplateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
+      >
         {course?.requirements.map((text, idx) => (
           <Flex key={idx} gap={2} align={"center"}>
             <Icon as={GoPrimitiveDot} w={3} h={3} />
             <Text>{text.charAt(0).toUpperCase() + text.slice(1)}</Text>
           </Flex>
         ))}
-      </HStack>
+      </Grid>
       <Divider mt={5} />
       <Box
         p={4}

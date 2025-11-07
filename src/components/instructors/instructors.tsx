@@ -8,7 +8,7 @@ import {
   Icon,
   Stack,
   Text,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,35 +39,40 @@ const Instructors = () => {
         }}
         mt={5}
       >
-        {instructors.map((item, idx) => (
-          <Card key={idx} background={useColorModeValue("gray.50", "gray.700")}>
-            <Box pos={"relative"} w={"full"} h={"330px"}>
-              <Image
-                src={
-                  item.avatar
-                    ? loadImage(item.avatar)
-                    : "/images/placeholder-portrait.png"
-                }
-                alt={item.fullName}
-                fill
-                style={{ objectFit: "cover", borderRadius: "8px" }}
-              />
-            </Box>
-            <Stack spacing={3} p={3}>
-              <Heading fontSize={"xl"}>{item.fullName}</Heading>
-              <Text color={"gray.500"}>{item.job}</Text>
-              <HStack opacity={".6"}>
-                <Flex align={"center"} gap={1}>
-                  <Icon as={FaUserGraduate} />
-                  <Text>{item.studentsCount} students</Text>
-                </Flex>
-                <Flex align={"center"} gap={1}>
-                  <Icon as={AiOutlinePlayCircle} />
-                  <Text>{item.totalCourses} courses</Text>
-                </Flex>
-              </HStack>
-            </Stack>
-          </Card>
+        {instructors.map((item) => (
+          <Link href={`/instructors/${item._id}`} key={item._id}>
+            <Card
+              background={useColorModeValue("gray.50", "gray.700")}
+              cursor={"pointer"}
+            >
+              <Box pos={"relative"} w={"full"} h={"330px"}>
+                <Image
+                  src={
+                    item.avatar
+                      ? loadImage(item.avatar)
+                      : "/images/placeholder-portrait.png"
+                  }
+                  alt={item.fullName}
+                  fill
+                  style={{ objectFit: "cover", borderRadius: "8px" }}
+                />
+              </Box>
+              <Stack spacing={3} p={3}>
+                <Heading fontSize={"xl"}>{item.fullName}</Heading>
+                <Text color={"gray.500"}>{item.job}</Text>
+                <HStack opacity={".6"}>
+                  <Flex align={"center"} gap={1}>
+                    <Icon as={FaUserGraduate} />
+                    <Text>{item.studentsCount} students</Text>
+                  </Flex>
+                  <Flex align={"center"} gap={1}>
+                    <Icon as={AiOutlinePlayCircle} />
+                    <Text>{item.totalCourses} courses</Text>
+                  </Flex>
+                </HStack>
+              </Stack>
+            </Card>
+          </Link>
         ))}
       </Grid>
 

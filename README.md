@@ -1,6 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center" id="title">Digital Uzbekistan</h1>
 
-## Getting Started
+<p align="center"><img src="https://www.portfolio.digitaluzbekistan.com/images/startup.png" alt="project-image"></p>
+
+<p id="description">This project is a real startup. You can see admin instructor and user professional dashboards in the project. In order for the project to be at the international level we have made it in 4 languages English Uzbek Turkish and Russian.</p>
+
+<h2>🚀 Demo</h2>
+
+[https://digitaluzbekistan.com/](https://digitaluzbekistan.com/)
+
+  
+  
+<h2>🧐 Features</h2>
+
+Here're some of the project's best features:
+
+*   Designed database architecture and integrated external services for authentication and content management.
+*   Implemented a secure auth system with access and refresh tokens supporting multiple user roles (admin instructor and learner).
+*   Built server-side rendered (SSR) frontend for better SEO and performance.
+*   Created separate dashboards for users instructors and administrators to manage courses and platform data.
+*   Integrated RESTful APIs between frontend and backend ensuring smooth communication and scalability.
+*   Deployed a working production version enabling users to register watch courses and create new ones.
+*   Gained practical understanding of full-stack development flow from database design to Ul implementation.
+
+  
+  
+<h2>💻 Built with</h2>
+
+Technologies used in the project:
+
+*   Typescript
+*   NextJS
+*   NestJS
+*   Chakra-ui
+
+<h2>Run project</h1>
 
 First, run the development server:
 
@@ -14,22 +47,19 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+<h2>.env file requires</h2>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+NEXT_PUBLIC_API_SERVICE=http://localhost:8000
+NEXT_PUBLIC_CLIENT_DOMAIN=http://localhost:3000
 
-## Learn More
+NEXT_PUBLIC_SECRET_AUTH
 
-To learn more about Next.js, take a look at the following resources:
+NEXT_PUBLIC_GOOGLE_CLINET_ID
+NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+NEXT_PUBLIC_GITHUB_CLIENT_ID
+NEXT_PUBLIC_GITHUB_CLIENT_SECRET
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 # startup
